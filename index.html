@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Myna — Meeting Transcription for Mac</title>
+  <meta name="description" content="Myna transcribes your meetings. No fluff. Just words." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f4f0;
+      --grey:  #8a8a8a;
+      --dim:   #1a1a1a;
+      --rule:  #2a2a2a;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── Grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .logo span {
+      font-style: italic;
+      color: var(--grey);
+    }
+
+    nav .status {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--grey);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 8rem 3rem 6rem;
+      max-width: 900px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--grey);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      font-weight: 400;
+      margin-bottom: 2.5rem;
+      color: var(--white);
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--grey);
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--grey);
+      max-width: 420px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── CTA ── */
+    .cta-group {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* Mac App Store button — black & white */
+    .appstore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--white);
+      color: var(--black);
+      text-decoration: none;
+      padding: 0.85rem 1.5rem;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      border: 1px solid var(--white);
+    }
+
+    .appstore-btn:hover {
+      background: transparent;
+      color: var(--white);
+    }
+
+    .appstore-btn:hover .appstore-icon path,
+    .appstore-btn:hover .appstore-icon rect {
+      fill: var(--white);
+    }
+
+    .appstore-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .appstore-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .appstore-text .small {
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 2px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .appstore-text .big {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .coming-soon {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--grey);
+      text-transform: uppercase;
+    }
+
+    /* ── Divider ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0 3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    /* ── What it does ── */
+    .what {
+      padding: 5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--grey);
+      text-transform: uppercase;
+      padding-top: 0.25rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .feature {
+      padding: 2rem;
+      border: 1px solid var(--rule);
+      margin: -1px 0 0 -1px;
+      transition: background 0.2s ease;
+    }
+
+    .feature:hover {
+      background: var(--dim);
+    }
+
+    .feature-num {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--grey);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      color: var(--white);
+    }
+
+    .feature p {
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--grey);
+    }
+
+    /* ── Terminal block ── */
+    .terminal-section {
+      padding: 5rem 3rem;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+    }
+
+    .terminal {
+      background: var(--dim);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 680px;
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--rule);
+      background: #111;
+    }
+
+    .terminal-bar span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .t-red   { background: #3a3a3a; }
+    .t-yellow{ background: #3a3a3a; }
+    .t-green { background: #3a3a3a; }
+
+    .terminal-title {
+      font-size: 0.65rem;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+      margin-left: auto;
+      margin-right: auto;
+      transform: translateX(-24px);
+    }
+
+    .terminal-body {
+      padding: 1.5rem;
+    }
+
+    .terminal-body p {
+      font-size: 0.78rem;
+      line-height: 2;
+      color: var(--grey);
+    }
+
+    .terminal-body .t-white { color: var(--white); }
+    .terminal-body .t-dim   { color: #444; }
+    .terminal-body .t-green-text { color: #4ade80; }
+
+    /* ── Privacy ── */
+    .privacy-section {
+      padding: 5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    }
+
+    .privacy-points {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .privacy-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .privacy-point:first-child { border-top: 1px solid var(--rule); }
+
+    .privacy-point .p-num {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--grey);
+      padding-top: 0.15rem;
+      flex-shrink: 0;
+      width: 24px;
+    }
+
+    .privacy-point h4 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .privacy-point p {
+      font-size: 0.75rem;
+      line-height: 1.7;
+      color: var(--grey);
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+    }
+
+    footer .logo {
+      font-size: 1.1rem;
+    }
+
+    footer p {
+      font-size: 0.65rem;
+      color: var(--grey);
+      letter-spacing: 0.08em;
+    }
+
+    footer a {
+      color: var(--grey);
+      text-decoration: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      transition: color 0.15s;
+    }
+
+    footer a:hover { color: var(--white); }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 1.5rem; }
+      .hero { padding: 5rem 1.5rem 4rem; }
+      h1 { font-size: 3rem; }
+      .section-divider { margin: 0 1.5rem; }
+      .what { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+      .features { grid-template-columns: 1fr; }
+      .terminal-section { padding: 3rem 1.5rem; }
+      .privacy-section { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1.5rem; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="/" class="logo">Myna<span>.</span></a>
+    <div class="status">
+      <span class="dot"></span>
+      macOS — Early Access
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <p class="eyebrow">Meeting Transcription for Mac</p>
+    <h1>Your meetings,<br /><em>remembered.</em></h1>
+    <p class="subtitle">
+      Myna sits quietly in your meeting and captures every word.
+      No cloud. No subscription. No nonsense.
+    </p>
+    <div class="cta-group">
+      <!-- Mac App Store Button -->
+      <a href="#" class="appstore-btn" aria-label="Download on the Mac App Store">
+        <svg class="appstore-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.78 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" fill="#0a0a0a"/>
+        </svg>
+        <div class="appstore-text">
+          <span class="small">Download on the</span>
+          <span class="big">Mac App Store</span>
+        </div>
+      </a>
+      <span class="coming-soon">Coming soon</span>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- What it does -->
+  <section class="what">
+    <p class="section-label">What it does</p>
+    <div class="features">
+      <div class="feature">
+        <span class="feature-num">01</span>
+        <h3>Transcribes</h3>
+        <p>Captures mic and system audio separately. Every word, every speaker, timestamped.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-num">02</span>
+        <h3>Summarises</h3>
+        <p>Apple Intelligence generates a summary on your device. Never leaves your Mac.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-num">03</span>
+        <h3>Remembers</h3>
+        <p>Every meeting saved locally. Search, read, export whenever you need it.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-num">04</span>
+        <h3>Stays quiet</h3>
+        <p>Sits in the background. Pause, resume, stop. No interruptions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal preview -->
+  <section class="terminal-section">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="t-red"></span>
+        <span class="t-yellow"></span>
+        <span class="t-green"></span>
+        <span class="terminal-title">myna — live transcript</span>
+      </div>
+      <div class="terminal-body">
+        <p><span class="t-dim">[00:00]</span> <span class="t-white">You</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Let's kick off the standup.</p>
+        <p><span class="t-dim">[00:04]</span> <span class="t-white">Speaker</span> &nbsp; Sure. I finished the auth flow yesterday.</p>
+        <p><span class="t-dim">[00:09]</span> <span class="t-white">You</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Any blockers?</p>
+        <p><span class="t-dim">[00:11]</span> <span class="t-white">Speaker</span> &nbsp; Yeah, waiting on the API keys from Rahul.</p>
+        <p><span class="t-dim">[00:18]</span> <span class="t-white">You</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I'll follow up with him today.</p>
+        <p>&nbsp;</p>
+        <p><span class="t-green-text">✓ Summary ready &nbsp;·&nbsp; 2 action items &nbsp;·&nbsp; saved locally</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="privacy-section">
+    <p class="section-label">Privacy</p>
+    <div class="privacy-points">
+      <div class="privacy-point">
+        <span class="p-num">—</span>
+        <div>
+          <h4>On device, always</h4>
+          <p>Transcription and AI summaries run entirely on your Mac using Apple Intelligence. Nothing is sent to any server.</p>
+        </div>
+      </div>
+      <div class="privacy-point">
+        <span class="p-num">—</span>
+        <div>
+          <h4>No account required</h4>
+          <p>Download, open, record. No sign up, no email, no subscription. Your meetings are yours.</p>
+        </div>
+      </div>
+      <div class="privacy-point">
+        <span class="p-num">—</span>
+        <div>
+          <h4>Stored locally</h4>
+          <p>All transcripts and summaries live in a local database on your machine. Delete anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <a href="/" class="logo">Myna<span>.</span></a>
+    <div class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/support">Support</a>
+    </div>
+    <p>© 2025 Ashwin Nair</p>
+  </footer>
+
+</body>
+</html>
