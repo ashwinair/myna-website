@@ -3,552 +3,1704 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Myna — Meeting Transcription for Mac</title>
-  <meta name="description" content="Myna transcribes your meetings. No fluff. Just words." />
+  <title>Myna — AI Meeting Notes for Mac</title>
+  <meta name="description" content="Myna listens, transcribes, and summarizes every meeting — entirely on your Mac. Powered by Apple Intelligence. Zero servers. Zero cloud." />
+  <link rel="icon" href="./assets/logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&display=swap" rel="stylesheet" />
 
   <style>
+    /* ─── Reset ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 
+    /* ─── Tokens ─────────────────────────────────────────── */
     :root {
-      --black: #0a0a0a;
-      --white: #f5f4f0;
-      --grey:  #8a8a8a;
-      --dim:   #1a1a1a;
-      --rule:  #2a2a2a;
+      --accent:        #DE7171;
+      --accent-soft:   rgba(222, 113, 113, 0.12);
+      --accent-mid:    rgba(222, 113, 113, 0.25);
+      --black:         #0a0a0a;
+      --white:         #ffffff;
+      --bg:            #ffffff;
+      --surface:       #fafafa;
+      --border:        #e8e8e8;
+      --border-dark:   #d0d0d0;
+      --text-primary:  #0a0a0a;
+      --text-secondary:#525252;
+      --text-tertiary: #909090;
+      --font:          'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --max-w:         1080px;
+      --r-sm:          8px;
+      --r-md:          14px;
+      --r-lg:          20px;
+      --r-xl:          28px;
     }
 
-    html { font-size: 16px; scroll-behavior: smooth; }
-
+    /* ─── Base ───────────────────────────────────────────── */
     body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ─── Nav ────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo img {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+    }
+
+    .nav-logo-name {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.18s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
       background: var(--black);
       color: var(--white);
-      font-family: 'DM Mono', monospace;
-      font-weight: 300;
-      min-height: 100vh;
-      overflow-x: hidden;
-      cursor: default;
+      font-family: var(--font);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: var(--r-sm);
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.12s;
+      letter-spacing: -0.1px;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: #1f1f1f; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font);
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 9px 16px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.18s, color 0.18s;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: var(--border-dark); color: var(--text-primary); }
+
+    /* ─── Hero ───────────────────────────────────────────── */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* ── Grain overlay ── */
-    body::before {
+    .hero::before {
       content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse at center, rgba(222,113,113,0.10) 0%, transparent 70%);
       pointer-events: none;
-      z-index: 999;
-      opacity: 0.6;
     }
 
-    /* ── Nav ── */
-    nav {
-      display: flex;
-      justify-content: space-between;
+    .hero-badge {
+      display: inline-flex;
       align-items: center;
-      padding: 2rem 3rem;
-      border-bottom: 1px solid var(--rule);
+      gap: 7px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-mid);
+      color: var(--accent);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 32px;
+      letter-spacing: 0.01em;
     }
 
-    .logo {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.4rem;
-      letter-spacing: -0.01em;
-      color: var(--white);
-      text-decoration: none;
-    }
-
-    .logo span {
-      font-style: italic;
-      color: var(--grey);
-    }
-
-    nav .status {
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      color: var(--grey);
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .dot {
-      width: 6px;
-      height: 6px;
+    .hero-badge .dot {
+      width: 6px; height: 6px;
       border-radius: 50%;
-      background: #4ade80;
+      background: var(--accent);
       animation: pulse 2s ease-in-out infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
     }
 
-    /* ── Hero ── */
-    .hero {
-      padding: 8rem 3rem 6rem;
-      max-width: 900px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    .hero h1 {
+      font-size: clamp(44px, 6vw, 72px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+      max-width: 780px;
+      margin: 0 auto 24px;
     }
 
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .hero h1 .accent { color: var(--accent); }
 
-    .eyebrow {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--grey);
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-    }
-
-    h1 {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(3.5rem, 8vw, 7rem);
-      line-height: 1.0;
-      letter-spacing: -0.03em;
+    .hero-sub {
+      font-size: clamp(17px, 2vw, 20px);
       font-weight: 400;
-      margin-bottom: 2.5rem;
-      color: var(--white);
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 44px;
+      line-height: 1.6;
     }
 
-    h1 em {
-      font-style: italic;
-      color: var(--grey);
-    }
-
-    .subtitle {
-      font-size: 0.95rem;
-      line-height: 1.8;
-      color: var(--grey);
-      max-width: 420px;
-      margin-bottom: 3.5rem;
-    }
-
-    /* ── CTA ── */
-    .cta-group {
+    .hero-actions {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      justify-content: center;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    /* Mac App Store button — black & white */
-    .appstore-btn {
+    .btn-appstore {
       display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
-      background: var(--white);
-      color: var(--black);
-      text-decoration: none;
-      padding: 0.85rem 1.5rem;
-      border-radius: 10px;
-      transition: all 0.2s ease;
-      border: 1px solid var(--white);
-    }
-
-    .appstore-btn:hover {
-      background: transparent;
+      gap: 10px;
+      background: var(--black);
       color: var(--white);
-    }
-
-    .appstore-btn:hover .appstore-icon path,
-    .appstore-btn:hover .appstore-icon rect {
-      fill: var(--white);
-    }
-
-    .appstore-icon {
-      width: 24px;
-      height: 24px;
-      flex-shrink: 0;
-    }
-
-    .appstore-text {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-    }
-
-    .appstore-text .small {
-      font-size: 0.6rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 400;
-      line-height: 1;
-      margin-bottom: 2px;
-      font-family: 'DM Mono', monospace;
-    }
-
-    .appstore-text .big {
-      font-size: 0.95rem;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1;
-      font-family: 'DM Mono', monospace;
-    }
-
-    .coming-soon {
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      color: var(--grey);
-      text-transform: uppercase;
-    }
-
-    /* ── Divider ── */
-    .section-divider {
+      font-family: var(--font);
+      padding: 13px 22px;
+      border-radius: var(--r-md);
       border: none;
-      border-top: 1px solid var(--rule);
-      margin: 0 3rem;
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .btn-appstore:hover {
+      background: #1f1f1f;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.16), 0 12px 32px rgba(0,0,0,0.10);
+    }
+    .btn-appstore svg { flex-shrink: 0; }
+    .btn-appstore-text { text-align: left; }
+    .btn-appstore-text .line1 { font-size: 10px; font-weight: 400; opacity: 0.7; display: block; line-height: 1.2; }
+    .btn-appstore-text .line2 { font-size: 17px; font-weight: 700; display: block; line-height: 1.2; letter-spacing: -0.3px; }
+
+    .hero-note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-tertiary);
     }
 
-    /* ── What it does ── */
-    .what {
-      padding: 5rem 3rem;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 4rem;
-      align-items: start;
-      border-bottom: 1px solid var(--rule);
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-    }
-
-    .section-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--grey);
-      text-transform: uppercase;
-      padding-top: 0.25rem;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-    }
-
-    .feature {
-      padding: 2rem;
-      border: 1px solid var(--rule);
-      margin: -1px 0 0 -1px;
-      transition: background 0.2s ease;
-    }
-
-    .feature:hover {
-      background: var(--dim);
-    }
-
-    .feature-num {
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      color: var(--grey);
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .feature h3 {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.4rem;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-      color: var(--white);
-    }
-
-    .feature p {
-      font-size: 0.78rem;
-      line-height: 1.7;
-      color: var(--grey);
-    }
-
-    /* ── Terminal block ── */
-    .terminal-section {
-      padding: 5rem 3rem;
-      border-bottom: 1px solid var(--rule);
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
-    }
-
-    .terminal {
-      background: var(--dim);
-      border: 1px solid var(--rule);
-      border-radius: 8px;
+    /* ─── Mock UI Preview ────────────────────────────────── */
+    .hero-preview {
+      margin: 72px auto 0;
+      max-width: 860px;
+      border-radius: var(--r-xl);
+      border: 1px solid var(--border);
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.04),
+        0 8px 24px rgba(0,0,0,0.06),
+        0 32px 80px rgba(0,0,0,0.08);
       overflow: hidden;
-      max-width: 680px;
+      background: #f7f6f4;
     }
 
-    .terminal-bar {
+    .window-bar {
+      height: 44px;
+      background: #f0efed;
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.9rem 1rem;
-      border-bottom: 1px solid var(--rule);
-      background: #111;
+      padding: 0 18px;
+      gap: 8px;
     }
-
-    .terminal-bar span {
-      width: 10px;
-      height: 10px;
+    .window-dot {
+      width: 12px; height: 12px;
       border-radius: 50%;
     }
+    .dot-red    { background: #FF5F57; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green  { background: #28C840; }
 
-    .t-red   { background: #3a3a3a; }
-    .t-yellow{ background: #3a3a3a; }
-    .t-green { background: #3a3a3a; }
-
-    .terminal-title {
-      font-size: 0.65rem;
-      color: var(--grey);
-      letter-spacing: 0.1em;
-      margin-left: auto;
-      margin-right: auto;
-      transform: translateX(-24px);
+    .window-title {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: #999;
+      letter-spacing: 0.01em;
     }
 
-    .terminal-body {
-      padding: 1.5rem;
+    .window-content {
+      display: flex;
+      height: 520px;
+      background: #ffffff;
     }
 
-    .terminal-body p {
-      font-size: 0.78rem;
-      line-height: 2;
-      color: var(--grey);
-    }
-
-    .terminal-body .t-white { color: var(--white); }
-    .terminal-body .t-dim   { color: #444; }
-    .terminal-body .t-green-text { color: #4ade80; }
-
-    /* ── Privacy ── */
-    .privacy-section {
-      padding: 5rem 3rem;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 4rem;
-      border-bottom: 1px solid var(--rule);
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
-    }
-
-    .privacy-points {
+    /* ── App Sidebar ── */
+    .app-sidebar {
+      width: 218px;
+      background: #f7f6f4;
+      border-right: 1px solid #e8e8e8;
       display: flex;
       flex-direction: column;
-      gap: 0;
-    }
-
-    .privacy-point {
-      display: flex;
-      align-items: flex-start;
-      gap: 1.5rem;
-      padding: 1.5rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .privacy-point:first-child { border-top: 1px solid var(--rule); }
-
-    .privacy-point .p-num {
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      color: var(--grey);
-      padding-top: 0.15rem;
       flex-shrink: 0;
-      width: 24px;
+    }
+    .app-sidebar-top { padding: 18px 10px 10px; flex: 1; }
+    .app-sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 2px 8px 18px;
+    }
+    .app-sidebar-logo img { width: 26px; height: 26px; border-radius: 7px; }
+    .app-sidebar-logo span { font-size: 14px; font-weight: 700; letter-spacing: -0.2px; color: #0a0a0a; }
+
+    .app-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #606060;
+      margin-bottom: 2px;
+      user-select: none;
+    }
+    .app-nav-item.active {
+      background: #ffffff;
+      color: #0a0a0a;
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+    .app-nav-icon {
+      width: 15px; height: 15px;
+      flex-shrink: 0;
+      opacity: 0.45;
+    }
+    .app-nav-item.active .app-nav-icon { opacity: 1; }
+
+    .app-sidebar-footer {
+      padding: 10px 14px 14px;
+      border-top: 1px solid #e8e8e8;
+    }
+    .app-on-device {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #a0a0a0;
     }
 
-    .privacy-point h4 {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.1rem;
-      font-weight: 400;
-      color: var(--white);
-      margin-bottom: 0.3rem;
+    /* ── App Main ── */
+    .app-main { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+    .app-main-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 26px 28px 28px;
+      scrollbar-width: thin;
+      scrollbar-color: #d4d4d4 transparent;
     }
 
-    .privacy-point p {
-      font-size: 0.75rem;
-      line-height: 1.7;
-      color: var(--grey);
-    }
-
-    /* ── Footer ── */
-    footer {
-      padding: 2.5rem 3rem;
+    /* Greeting */
+    .app-greeting {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 26px;
+    }
+    .app-greeting-day {
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a0a0a0;
+      margin-bottom: 3px;
+      text-align: left;
+    }
+    .app-greeting-title {
+      font-size: 21px; font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #0a0a0a;
+      line-height: 1.15;
+    }
+    .app-greeting-title .accent { color: #DE7171; }
+    .app-date-label {
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a0a0a0;
+      text-align: right;
+    }
+    .app-date-num {
+      font-size: 21px; font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #0a0a0a;
+      text-align: right;
+    }
+
+    /* Section headers */
+    .app-section-header {
+      display: flex;
       align-items: center;
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .app-section-title { font-size: 14px; font-weight: 700; color: #0a0a0a; letter-spacing: -0.15px; }
+    .app-see-all { font-size: 12px; font-weight: 500; color: #a0a0a0; }
+
+    /* Meeting rows */
+    .app-meetings { margin-bottom: 26px; }
+    .app-meeting-row {
+      display: flex;
+      align-items: stretch;
+      background: #ffffff;
+      border: 1px solid #e8e8e8;
+      border-radius: 11px;
+      margin-bottom: 7px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .app-meeting-time {
+      width: 90px;
+      flex-shrink: 0;
+      padding: 14px 8px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1px;
+      position: relative;
+    }
+    .app-meeting-dot {
+      position: absolute;
+      right: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #DE7171;
+      opacity: 0.5;
+    }
+    .app-time-today { font-size: 10px; font-weight: 700; color: #DE7171; letter-spacing: 0.01em; }
+    .app-time-val   { font-size: 13px; font-weight: 700; color: #0a0a0a; letter-spacing: -0.3px; }
+    .app-time-dur   { font-size: 10px; color: #b0b0b0; }
+
+    .app-meeting-divider { width: 1px; background: #e8e8e8; flex-shrink: 0; }
+
+    .app-meeting-content { flex: 1; padding: 13px 14px; text-align: left; }
+    .app-meeting-title { font-size: 13px; font-weight: 600; color: #0a0a0a; margin-bottom: 5px; letter-spacing: -0.1px; text-align: left; }
+    .app-meeting-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+    .app-tag {
+      font-size: 10.5px; font-weight: 500;
+      color: #606060;
+      background: #f3f3f3;
+      border: 1px solid #e8e8e8;
+      padding: 2px 8px;
+      border-radius: 999px;
     }
 
-    footer .logo {
-      font-size: 1.1rem;
+    .app-meeting-action { padding: 0 14px 0 6px; display: flex; align-items: center; flex-shrink: 0; }
+    .app-join-btn {
+      background: #DE7171;
+      color: white;
+      font-size: 11.5px; font-weight: 700;
+      padding: 6px 15px;
+      border-radius: 999px;
+      border: none;
+      user-select: none;
+      letter-spacing: -0.1px;
     }
 
-    footer p {
-      font-size: 0.65rem;
-      color: var(--grey);
+    /* Notes grid */
+    .app-notes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .app-note-card {
+      background: #ffffff;
+      border: 1px solid #e8e8e8;
+      border-radius: 11px;
+      padding: 13px 13px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .app-note-title { font-size: 12.5px; font-weight: 700; color: #0a0a0a; letter-spacing: -0.1px; line-height: 1.3; }
+    .app-note-meta  { font-size: 10.5px; color: #a0a0a0; }
+    .app-note-preview {
+      font-size: 11.5px; color: #606060;
+      line-height: 1.55;
+      flex: 1;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+    }
+    .app-note-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+    .app-ai-badge {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 10px; font-weight: 600; color: #a0a0a0;
+    }
+    .app-view-btn {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 10.5px; font-weight: 500; color: #606060;
+      background: #f3f3f3;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 3px 9px;
+      user-select: none;
+    }
+    .app-share-btn { color: #c8c8c8; font-size: 12px; }
+
+    /* ─── Strip / Social Proof ───────────────────────────── */
+    .strip {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 0;
+      text-align: center;
+    }
+    .strip p {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      letter-spacing: 0.01em;
+    }
+    .strip strong { color: var(--text-secondary); font-weight: 600; }
+
+    /* ─── Section Shared ─────────────────────────────────── */
+    section {
+      padding: 100px 0;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 18px;
+    }
+
+    .section-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      max-width: 480px;
+      line-height: 1.6;
+      margin-bottom: 60px;
+    }
+
+    /* ─── Features ───────────────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .feature-cell {
+      background: var(--bg);
+      padding: 40px 36px;
+      transition: background 0.18s;
+    }
+    .feature-cell:hover { background: var(--surface); }
+
+    .feature-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .feature-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ─── How it works ───────────────────────────────────── */
+    .steps {
+      background: var(--surface);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--black);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      letter-spacing: -0.2px;
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ─── Privacy ────────────────────────────────────────── */
+    .privacy {
+      background: var(--black);
+      color: white;
+    }
+
+    .privacy .section-title { color: white; }
+    .privacy .section-sub   { color: rgba(255,255,255,0.55); max-width: 560px; }
+
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .privacy-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--r-md);
+      padding: 32px 28px;
+      transition: background 0.18s;
+    }
+    .privacy-card:hover { background: rgba(255,255,255,0.09); }
+
+    .privacy-icon {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .privacy-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: white;
+    }
+
+    .privacy-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.50);
+      line-height: 1.65;
+    }
+
+    /* ─── Reviews ───────────────────────────────────────── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .review-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px 26px;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+    }
+    .review-card:hover {
+      border-color: var(--border-dark);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    .review-stars {
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    .review-text {
+      font-size: 14.5px;
+      color: var(--text-primary);
+      line-height: 1.7;
+      flex: 1;
+      font-style: italic;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .review-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-mid);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .review-role {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .review-loc {
+      font-size: 11.5px;
+      color: var(--text-tertiary);
+      margin-top: 1px;
+    }
+
+    .review-anon-badge {
+      margin-left: auto;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Pricing ────────────────────────────────────────── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 40px 36px;
+      background: var(--bg);
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+      position: relative;
+    }
+    .pricing-card:hover {
+      border-color: var(--border-dark);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+
+    .pricing-card.featured {
+      background: var(--black);
+      border-color: transparent;
+      color: white;
+    }
+    .pricing-card.featured:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    .pricing-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      text-transform: uppercase;
       letter-spacing: 0.08em;
     }
+    .pricing-card.featured .pricing-name { color: rgba(255,255,255,0.5); }
 
-    footer a {
-      color: var(--grey);
-      text-decoration: none;
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      transition: color 0.15s;
+    .pricing-price {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+    .pricing-price .currency {
+      font-size: 24px;
+      font-weight: 600;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .pricing-price .period {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-tertiary);
+    }
+    .pricing-card.featured .pricing-price .period { color: rgba(255,255,255,0.4); }
+
+    .pricing-tagline {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-bottom: 32px;
+    }
+    .pricing-card.featured .pricing-tagline { color: rgba(255,255,255,0.4); }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 36px;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .pricing-card.featured .pricing-features li { color: rgba(255,255,255,0.70); }
+
+    .pricing-features li::before {
+      content: '✓';
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    footer a:hover { color: var(--white); }
+    .pricing-cta {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 20px;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      transition: all 0.18s;
+      border: none;
+      letter-spacing: -0.1px;
+    }
+
+    .pricing-cta.dark {
+      background: white;
+      color: var(--black);
+    }
+    .pricing-cta.dark:hover { background: #f0f0f0; }
+
+    .pricing-cta.outline {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .pricing-cta.outline:hover { border-color: var(--border-dark); color: var(--text-primary); }
+
+    /* ─── Final CTA ──────────────────────────────────────── */
+    .final-cta {
+      text-align: center;
+      padding: 120px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse at top, rgba(222,113,113,0.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .final-cta .section-title { margin-bottom: 16px; }
+    .final-cta .section-sub {
+      margin: 0 auto 44px;
+      text-align: center;
+    }
+
+    .final-cta-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .final-note {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* ─── Footer ─────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-logo img {
+      width: 26px; height: 26px;
+      border-radius: 7px;
+    }
+    .footer-logo span {
+      font-size: 15px;
+      font-weight: 600;
+    }
 
     .footer-links {
       display: flex;
-      gap: 2rem;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      transition: color 0.18s;
+    }
+    .footer-links a:hover { color: var(--text-primary); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-tertiary);
     }
 
-    /* ── Responsive ── */
+    /* ─── Divider ────────────────────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── Responsive ─────────────────────────────────────── */
     @media (max-width: 768px) {
-      nav { padding: 1.5rem; }
-      .hero { padding: 5rem 1.5rem 4rem; }
-      h1 { font-size: 3rem; }
-      .section-divider { margin: 0 1.5rem; }
-      .what { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
-      .features { grid-template-columns: 1fr; }
-      .terminal-section { padding: 3rem 1.5rem; }
-      .privacy-section { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
-      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1.5rem; text-align: center; }
-      .footer-links { justify-content: center; }
+      .container { padding: 0 20px; }
+      .nav-inner  { padding: 0 20px; }
+      .nav-links  { display: none; }
+      .nav-cta .btn-ghost { display: none; }
+
+      .hero       { padding: 100px 0 60px; }
+      section     { padding: 64px 0; }
+      .final-cta  { padding: 60px 0; }
+
+      .features-grid { grid-template-columns: 1fr; }
+      .steps-grid    { grid-template-columns: 1fr; gap: 48px; }
+      .privacy-grid  { grid-template-columns: 1fr; }
+      .pricing-grid  { grid-template-columns: 1fr; }
+
+      .window-content { height: 380px; }
+      .app-sidebar { width: 160px; }
+      .app-notes-grid { grid-template-columns: repeat(2, 1fr); }
+      .app-note-card.featured { grid-column: 1; grid-row: 1 / 3; }
+
+      .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+      .footer-links { gap: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-preview { border-radius: var(--r-md); }
+      .window-content { height: 260px; }
+      .app-sidebar { display: none; }
+      .app-notes-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Subtle scroll fade-in ──────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
 
-  <!-- Nav -->
+  <!-- ══ NAV ══════════════════════════════════════════════ -->
   <nav>
-    <a href="/" class="logo">Myna<span>.</span></a>
-    <div class="status">
-      <span class="dot"></span>
-      macOS — Early Access
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="./assets/logo.png" alt="Myna logo" />
+        <span class="nav-logo-name">Myna</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="#pricing" class="btn-ghost">See pricing</a>
+        <a href="#download" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16l-6-6h4V4h4v6h4l-6 6z"/><path d="M4 20h16"/></svg>
+          Download
+        </a>
+      </div>
     </div>
   </nav>
 
-  <!-- Hero -->
+
+  <!-- ══ HERO ═════════════════════════════════════════════ -->
   <section class="hero">
-    <p class="eyebrow">Meeting Transcription for Mac</p>
-    <h1>Your meetings,<br /><em>remembered.</em></h1>
-    <p class="subtitle">
-      Myna sits quietly in your meeting and captures every word.
-      No cloud. No subscription. No nonsense.
-    </p>
-    <div class="cta-group">
-      <!-- Mac App Store Button -->
-      <a href="#" class="appstore-btn" aria-label="Download on the Mac App Store">
-        <svg class="appstore-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.78 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" fill="#0a0a0a"/>
-        </svg>
-        <div class="appstore-text">
-          <span class="small">Download on the</span>
-          <span class="big">Mac App Store</span>
+    <div class="container">
+
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Powered by Apple Intelligence
+      </div>
+
+      <h1>Your meetings,<br /><span class="accent">never forgotten.</span></h1>
+
+      <p class="hero-sub">
+        Myna listens, transcribes, and summarizes every meeting — entirely on your Mac. No cloud. No subscriptions required.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#download" class="btn-appstore" id="download">
+          <svg width="22" height="26" viewBox="0 0 814 1000" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 268.4-317.3 70.4 0 128.9 46.5 173.4 46.5 42.8 0 109.7-50 191.5-50 30.8 0 133.3 2.6 198.9 101.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
+          <div class="btn-appstore-text">
+            <span class="line1">Download on the</span>
+            <span class="line2">Mac App Store</span>
+          </div>
+        </a>
+        <a href="#features" class="btn-ghost">
+          See how it works
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+
+      <p class="hero-note">Free to start · macOS 15+ · No account required</p>
+
+      <!-- App UI Preview -->
+      <div class="hero-preview fade-up" style="transition-delay:0.15s">
+
+        <!-- Window chrome -->
+        <div class="window-bar">
+          <div class="window-dot dot-red"></div>
+          <div class="window-dot dot-yellow"></div>
+          <div class="window-dot dot-green"></div>
+          <div style="margin-left:10px;opacity:0.35;display:flex;align-items:center;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          </div>
         </div>
-      </a>
-      <span class="coming-soon">Coming soon</span>
+
+        <div class="window-content">
+
+          <!-- ── Sidebar ── -->
+          <div class="app-sidebar">
+            <div class="app-sidebar-top">
+              <div class="app-sidebar-logo">
+                <img src="./assets/logo.png" alt="Myna" />
+                <span>Myna</span>
+              </div>
+
+              <div class="app-nav-item active">
+                <svg class="app-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Today
+              </div>
+              <div class="app-nav-item">
+                <svg class="app-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                All Meetings
+              </div>
+              <div class="app-nav-item">
+                <svg class="app-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Recent Notes
+              </div>
+              <div class="app-nav-item">
+                <svg class="app-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="18" y1="7" x2="18" y2="12"/><line x1="6" y1="12" x2="6" y2="17"/><line x1="14" y1="4" x2="14" y2="12"/><line x1="10" y1="12" x2="10" y2="20"/></svg>
+                Live Transcript
+              </div>
+              <div class="app-nav-item">
+                <svg class="app-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                Settings
+              </div>
+            </div>
+            <div class="app-sidebar-footer">
+              <div class="app-on-device">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                On Device
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Main Content ── -->
+          <div class="app-main">
+            <div class="app-main-scroll">
+
+              <!-- Greeting -->
+              <div class="app-greeting">
+                <div>
+                  <div class="app-greeting-day" id="appGreeting">Good afternoon</div>
+                  <div class="app-greeting-title">You have <span class="accent" id="appMeetingCount">5 meetings</span> today.</div>
+                </div>
+                <div>
+                  <div class="app-date-label" id="appDayName">Saturday</div>
+                  <div class="app-date-num" id="appDateNum">21 Mar</div>
+                </div>
+              </div>
+
+              <!-- Upcoming Meetings -->
+              <div class="app-meetings">
+                <div class="app-section-header">
+                  <div class="app-section-title">Upcoming Meetings</div>
+                  <div class="app-see-all">See all</div>
+                </div>
+
+                <div class="app-meeting-row">
+                  <div class="app-meeting-time">
+                    <span class="app-time-today">Today</span>
+                    <span class="app-time-val">2:00 PM</span>
+                    <span class="app-time-dur">60 min</span>
+                    <div class="app-meeting-dot"></div>
+                  </div>
+                  <div class="app-meeting-divider"></div>
+                  <div class="app-meeting-content">
+                    <div class="app-meeting-title">Product Strategy Review</div>
+                    <div class="app-meeting-tags">
+                      <span class="app-tag">Scheduled</span>
+                      <span class="app-tag">Sarah M., James C., +3</span>
+                    </div>
+                  </div>
+                  <div class="app-meeting-action"><div class="app-join-btn">Join</div></div>
+                </div>
+
+                <div class="app-meeting-row">
+                  <div class="app-meeting-time">
+                    <span class="app-time-today">Today</span>
+                    <span class="app-time-val">4:30 PM</span>
+                    <span class="app-time-dur">45 min</span>
+                    <div class="app-meeting-dot"></div>
+                  </div>
+                  <div class="app-meeting-divider"></div>
+                  <div class="app-meeting-content">
+                    <div class="app-meeting-title">Investor Update Call</div>
+                    <div class="app-meeting-tags">
+                      <span class="app-tag">Scheduled</span>
+                      <span class="app-tag">Alex T., +2</span>
+                    </div>
+                  </div>
+                  <div class="app-meeting-action"></div>
+                </div>
+
+                <div class="app-meeting-row">
+                  <div class="app-meeting-time">
+                    <span class="app-time-today">Today</span>
+                    <span class="app-time-val">6:00 PM</span>
+                    <span class="app-time-dur">30 min</span>
+                    <div class="app-meeting-dot"></div>
+                  </div>
+                  <div class="app-meeting-divider"></div>
+                  <div class="app-meeting-content">
+                    <div class="app-meeting-title">1:1 with Emily — Design Lead</div>
+                    <div class="app-meeting-tags">
+                      <span class="app-tag">Scheduled</span>
+                      <span class="app-tag">Just you</span>
+                    </div>
+                  </div>
+                  <div class="app-meeting-action"></div>
+                </div>
+
+                <div class="app-meeting-row">
+                  <div class="app-meeting-time">
+                    <span class="app-time-today">Today</span>
+                    <span class="app-time-val">7:30 PM</span>
+                    <span class="app-time-dur">45 min</span>
+                    <div class="app-meeting-dot"></div>
+                  </div>
+                  <div class="app-meeting-divider"></div>
+                  <div class="app-meeting-content">
+                    <div class="app-meeting-title">Quarterly OKR Review</div>
+                    <div class="app-meeting-tags">
+                      <span class="app-tag">Scheduled</span>
+                      <span class="app-tag">Tom H., Rachel K., +4</span>
+                    </div>
+                  </div>
+                  <div class="app-meeting-action"></div>
+                </div>
+
+                <div class="app-meeting-row">
+                  <div class="app-meeting-time">
+                    <span class="app-time-today">Today</span>
+                    <span class="app-time-val">9:00 PM</span>
+                    <span class="app-time-dur">60 min</span>
+                    <div class="app-meeting-dot"></div>
+                  </div>
+                  <div class="app-meeting-divider"></div>
+                  <div class="app-meeting-content">
+                    <div class="app-meeting-title">US Team Sync — Engineering</div>
+                    <div class="app-meeting-tags">
+                      <span class="app-tag">Scheduled</span>
+                      <span class="app-tag">Mike R., Dana S., +6</span>
+                    </div>
+                  </div>
+                  <div class="app-meeting-action"></div>
+                </div>
+              </div>
+
+              <!-- Recent Notes -->
+              <div>
+                <div class="app-section-header">
+                  <div class="app-section-title">Recent Notes</div>
+                  <div class="app-see-all">See all</div>
+                </div>
+
+                <div class="app-notes-grid">
+
+                  <!-- Q4 Budget Planning -->
+                  <div class="app-note-card">
+                    <div class="app-note-title">Q4 Budget Planning</div>
+                    <div class="app-note-meta">Yesterday · 52 min</div>
+                    <div class="app-note-preview">The meeting focused on Q4 headcount planning, EMEA expansion budget, and approval of the £1.2M engineering infrastructure spend.</div>
+                    <div class="app-note-footer">
+                      <div class="app-ai-badge">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        AI Summary
+                      </div>
+                      <div style="display:flex;gap:8px;align-items:center">
+                        <div class="app-view-btn">
+                          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                          View
+                        </div>
+                        <div class="app-share-btn">⬆</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Card 2 -->
+                  <div class="app-note-card">
+                    <div class="app-note-title">All Hands — March</div>
+                    <div class="app-note-meta">Mar 19 · 38 min</div>
+                    <div class="app-note-preview">## MEETING OVERVIEW<br/>Q1 results, roadmap preview &amp; new hire announcements.</div>
+                    <div class="app-note-footer">
+                      <div class="app-ai-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> AI Summary</div>
+                      <div class="app-view-btn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> View</div>
+                    </div>
+                  </div>
+
+                  <!-- Card 3 -->
+                  <div class="app-note-card">
+                    <div class="app-note-title">Design System Review</div>
+                    <div class="app-note-meta">Mar 18 · 24 min</div>
+                    <div class="app-note-preview">### MEETING OVERVIEW<br/>Component audit, spacing tokens, Figma handoff.</div>
+                    <div class="app-note-footer">
+                      <div class="app-ai-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> AI Summary</div>
+                      <div class="app-view-btn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> View</div>
+                    </div>
+                  </div>
+
+                  <!-- Card 4 -->
+                  <div class="app-note-card">
+                    <div class="app-note-title">Engineering Standup</div>
+                    <div class="app-note-meta">Mar 18 · 12 min</div>
+                    <div class="app-note-preview">Sprint 14 blockers, infra migration &amp; PR backlog.</div>
+                    <div class="app-note-footer">
+                      <div class="app-ai-badge"></div>
+                      <div class="app-view-btn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> View</div>
+                    </div>
+                  </div>
+
+                  <!-- Card 5 -->
+                  <div class="app-note-card">
+                    <div class="app-note-title">Client Onboarding — Fintech</div>
+                    <div class="app-note-meta">Mar 15 · 65 min</div>
+                    <div class="app-note-preview">## MEETING OVERVIEW<br/>Barclays integration kickoff, API scoping, compliance.</div>
+                    <div class="app-note-footer">
+                      <div class="app-ai-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> AI Summary</div>
+                      <div class="app-view-btn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> View</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <hr class="section-divider" />
 
-  <!-- What it does -->
-  <section class="what">
-    <p class="section-label">What it does</p>
-    <div class="features">
-      <div class="feature">
-        <span class="feature-num">01</span>
-        <h3>Transcribes</h3>
-        <p>Captures mic and system audio separately. Every word, every speaker, timestamped.</p>
-      </div>
-      <div class="feature">
-        <span class="feature-num">02</span>
-        <h3>Summarises</h3>
-        <p>Apple Intelligence generates a summary on your device. Never leaves your Mac.</p>
-      </div>
-      <div class="feature">
-        <span class="feature-num">03</span>
-        <h3>Remembers</h3>
-        <p>Every meeting saved locally. Search, read, export whenever you need it.</p>
-      </div>
-      <div class="feature">
-        <span class="feature-num">04</span>
-        <h3>Stays quiet</h3>
-        <p>Sits in the background. Pause, resume, stop. No interruptions.</p>
-      </div>
+  <!-- ══ STRIP ═════════════════════════════════════════════ -->
+  <div class="strip">
+    <div class="container">
+      <p>
+        <strong>100% on-device</strong> · Transcription &amp; summaries never leave your Mac ·
+        <strong>Apple Intelligence</strong> built-in · Works offline
+      </p>
     </div>
-  </section>
+  </div>
 
-  <!-- Terminal preview -->
-  <section class="terminal-section">
-    <div class="terminal">
-      <div class="terminal-bar">
-        <span class="t-red"></span>
-        <span class="t-yellow"></span>
-        <span class="t-green"></span>
-        <span class="terminal-title">myna — live transcript</span>
-      </div>
-      <div class="terminal-body">
-        <p><span class="t-dim">[00:00]</span> <span class="t-white">You</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Let's kick off the standup.</p>
-        <p><span class="t-dim">[00:04]</span> <span class="t-white">Speaker</span> &nbsp; Sure. I finished the auth flow yesterday.</p>
-        <p><span class="t-dim">[00:09]</span> <span class="t-white">You</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Any blockers?</p>
-        <p><span class="t-dim">[00:11]</span> <span class="t-white">Speaker</span> &nbsp; Yeah, waiting on the API keys from Rahul.</p>
-        <p><span class="t-dim">[00:18]</span> <span class="t-white">You</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I'll follow up with him today.</p>
-        <p>&nbsp;</p>
-        <p><span class="t-green-text">✓ Summary ready &nbsp;·&nbsp; 2 action items &nbsp;·&nbsp; saved locally</span></p>
-      </div>
-    </div>
-  </section>
 
-  <!-- Privacy -->
-  <section class="privacy-section">
-    <p class="section-label">Privacy</p>
-    <div class="privacy-points">
-      <div class="privacy-point">
-        <span class="p-num">—</span>
-        <div>
-          <h4>On device, always</h4>
-          <p>Transcription and AI summaries run entirely on your Mac using Apple Intelligence. Nothing is sent to any server.</p>
+  <!-- ══ FEATURES ══════════════════════════════════════════ -->
+  <section id="features">
+    <div class="container">
+      <span class="section-tag">Features</span>
+      <h2 class="section-title">Everything you need.<br />Nothing you don't.</h2>
+      <p class="section-sub">Built for focus. Myna captures everything so you don't have to.</p>
+
+      <div class="features-grid fade-up">
+        <div class="feature-cell">
+          <div class="feature-icon">🎙️</div>
+          <div class="feature-title">Live Transcription</div>
+          <p class="feature-desc">Real-time voice-to-text from your microphone and system audio simultaneously. Every word captured as it's spoken.</p>
         </div>
-      </div>
-      <div class="privacy-point">
-        <span class="p-num">—</span>
-        <div>
-          <h4>No account required</h4>
-          <p>Download, open, record. No sign up, no email, no subscription. Your meetings are yours.</p>
+        <div class="feature-cell">
+          <div class="feature-icon">✨</div>
+          <div class="feature-title">AI Summaries</div>
+          <p class="feature-desc">One tap to generate a clean, structured summary of your entire meeting using Apple Intelligence — right on your Mac.</p>
         </div>
-      </div>
-      <div class="privacy-point">
-        <span class="p-num">—</span>
-        <div>
-          <h4>Stored locally</h4>
-          <p>All transcripts and summaries live in a local database on your machine. Delete anytime.</p>
+        <div class="feature-cell">
+          <div class="feature-icon">📅</div>
+          <div class="feature-title">Calendar-Aware</div>
+          <p class="feature-desc">Myna reads your calendar and surfaces upcoming meetings automatically. Know what's next before it starts.</p>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-title">100% On-Device</div>
+          <p class="feature-desc">No cloud processing. No servers. Your transcripts and summaries are generated and stored entirely on your Mac.</p>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-icon">📋</div>
+          <div class="feature-title">Copy &amp; Export</div>
+          <p class="feature-desc">Copy your transcript or summary with a single click. Share it anywhere — Notion, email, Slack, or your own notes.</p>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-icon">🖥️</div>
+          <div class="feature-title">Truly Native Mac</div>
+          <p class="feature-desc">Built with SwiftUI for macOS. Feels at home in your dock. Fast, lightweight, and designed for how you actually work.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+
+  <!-- ══ HOW IT WORKS ══════════════════════════════════════ -->
+  <section id="how-it-works" class="steps">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:64px;" class="fade-up">
+        <span class="section-tag">How it works</span>
+        <h2 class="section-title">From calendar to notes<br />in three steps.</h2>
+      </div>
+
+      <div class="steps-grid fade-up">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Connect your calendar</div>
+          <p class="step-desc">Myna reads your macOS Calendar to detect upcoming meetings automatically. No setup needed — just grant access once.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Record &amp; transcribe</div>
+          <p class="step-desc">Hit record when your meeting starts. Myna captures mic and system audio in real-time and transcribes every word live.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Get your summary</div>
+          <p class="step-desc">When the meeting ends, Myna generates a clean AI summary using Apple Intelligence. Your notes are ready in seconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ PRIVACY ════════════════════════════════════════════ -->
+  <section class="privacy">
+    <div class="container">
+      <span class="section-tag" style="color:rgba(222,113,113,0.9)">Privacy</span>
+      <h2 class="section-title">Your conversations<br />stay yours.</h2>
+      <p class="section-sub">We didn't build a server because we didn't need to. Myna runs entirely on your Mac.</p>
+
+      <div class="privacy-grid fade-up">
+        <div class="privacy-card">
+          <div class="privacy-icon">🛡️</div>
+          <h3>No cloud, ever</h3>
+          <p>Your audio, transcripts, and summaries never leave your device. There's no backend to breach.</p>
+        </div>
+        <div class="privacy-card">
+          <div class="privacy-icon">🤖</div>
+          <h3>On-device AI</h3>
+          <p>Summaries are generated by Apple Intelligence, running locally on Apple Silicon. Fast, private, free.</p>
+        </div>
+        <div class="privacy-card">
+          <div class="privacy-icon">📵</div>
+          <h3>Works offline</h3>
+          <p>No internet required for transcription or summaries. Your notes are available even on a plane.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ REVIEWS ═══════════════════════════════════════════ -->
+  <section id="reviews">
+    <div class="container">
+      <div style="text-align:center; margin-bottom: 64px;" class="fade-up">
+        <span class="section-tag">Reviews</span>
+        <h2 class="section-title">People love it.<br />We just have no idea who they are.</h2>
+        <p class="section-sub" style="margin: 0 auto;">We don't collect user data — so these arrived anonymously. Which is exactly how we'd want it.</p>
+      </div>
+
+      <div class="reviews-grid fade-up">
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"I used to be the person who said 'wait, what did we decide again?' in every meeting. Myna fixed that. My team thinks I've had a personality transplant."</p>
+          <div class="review-author">
+            <div class="review-avatar">PM</div>
+            <div>
+              <div class="review-role">Product Manager</div>
+              <div class="review-loc">London, UK</div>
+            </div>
+            <div class="review-anon-badge">🔒 Anonymous</div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Finally, an app that's as paranoid about privacy as I am. Also it works incredibly well, which helps."</p>
+          <div class="review-author">
+            <div class="review-avatar">SE</div>
+            <div>
+              <div class="review-role">Security Engineer</div>
+              <div class="review-loc">San Francisco, US</div>
+            </div>
+            <div class="review-anon-badge">🔒 Anonymous</div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"My notes used to be '???' and 'follow up on thing'. Now they're actual summaries. Myna is doing more for my career than my MBA did."</p>
+          <div class="review-author">
+            <div class="review-avatar">MC</div>
+            <div>
+              <div class="review-role">Management Consultant</div>
+              <div class="review-loc">New York, US</div>
+            </div>
+            <div class="review-anon-badge">🔒 Anonymous</div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The fact that I can't give you my name for this review is literally the reason I trust this app with my meetings."</p>
+          <div class="review-author">
+            <div class="review-avatar">??</div>
+            <div>
+              <div class="review-role">Someone, somewhere</div>
+              <div class="review-loc">Undisclosed</div>
+            </div>
+            <div class="review-anon-badge">🔒 Anonymous</div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"I stopped pretending to take notes in meetings. Myna does it better anyway. Three months in and no one has noticed."</p>
+          <div class="review-author">
+            <div class="review-avatar">SM</div>
+            <div>
+              <div class="review-role">Senior Manager</div>
+              <div class="review-loc">Chicago, US</div>
+            </div>
+            <div class="review-anon-badge">🔒 Anonymous</div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Apple Intelligence, on my Mac, summarising my calls, storing nothing in the cloud. I feel like I'm living in 2030 and everyone else is still using Notion docs from 2019."</p>
+          <div class="review-author">
+            <div class="review-avatar">EA</div>
+            <div>
+              <div class="review-role">Early Adopter</div>
+              <div class="review-loc">Edinburgh, UK</div>
+            </div>
+            <div class="review-anon-badge">🔒 Anonymous</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ PRICING ════════════════════════════════════════════ -->
+  <section id="pricing">
+    <div class="container" style="text-align:center;">
+      <span class="section-tag">Pricing</span>
+      <h2 class="section-title">Simple, honest pricing.</h2>
+      <p class="section-sub" style="margin:0 auto 60px;">Start free. Upgrade when Myna becomes indispensable — which it will.</p>
+
+      <div class="pricing-grid fade-up">
+
+        <!-- Free -->
+        <div class="pricing-card">
+          <div class="pricing-name">Free</div>
+          <div class="pricing-price">
+            <span class="currency">$</span>0
+          </div>
+          <div class="pricing-tagline">Forever free · No card required</div>
+          <ul class="pricing-features">
+            <li>5 recorded meetings per month</li>
+            <li>Full live transcription</li>
+            <li>Calendar integration</li>
+            <li>Copy &amp; export transcript</li>
+            <li>On-device, private by default</li>
+          </ul>
+          <a href="#download" class="pricing-cta outline">Download free →</a>
+        </div>
+
+        <!-- Pro -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Most popular</div>
+          <div class="pricing-name">Pro</div>
+          <div class="pricing-price">
+            <span class="currency">$</span>8<span class="period">/mo</span>
+          </div>
+          <div class="pricing-tagline">Or $69/year — save 28%</div>
+          <ul class="pricing-features">
+            <li>Unlimited recorded meetings</li>
+            <li>AI summaries with Apple Intelligence</li>
+            <li>Full transcript history</li>
+            <li>One-tap copy summary</li>
+            <li>Priority updates &amp; new features</li>
+          </ul>
+          <a href="#download" class="pricing-cta dark">Get Myna Pro →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ FINAL CTA ══════════════════════════════════════════ -->
+  <section class="final-cta">
+    <div class="container fade-up">
+      <h2 class="section-title">Start remembering<br />everything.</h2>
+      <p class="section-sub">
+        Join thousands of professionals who let Myna handle the notes so they can actually be present in their meetings.
+      </p>
+
+      <div class="final-cta-actions">
+        <a href="#download" class="btn-appstore">
+          <svg width="22" height="26" viewBox="0 0 814 1000" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 268.4-317.3 70.4 0 128.9 46.5 173.4 46.5 42.8 0 109.7-50 191.5-50 30.8 0 133.3 2.6 198.9 101.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
+          <div class="btn-appstore-text">
+            <span class="line1">Download on the</span>
+            <span class="line2">Mac App Store</span>
+          </div>
+        </a>
+      </div>
+
+      <p class="final-note">Free to start · macOS 15+ · Apple Silicon · No account needed</p>
+    </div>
+  </section>
+
+
+  <!-- ══ FOOTER ═════════════════════════════════════════════ -->
   <footer>
-    <a href="/" class="logo">Myna<span>.</span></a>
-    <div class="footer-links">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/support">Support</a>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="#" class="footer-logo">
+          <img src="./assets/logo.png" alt="Myna" />
+          <span>Myna</span>
+        </a>
+
+        <ul class="footer-links">
+          <li><a href="./privacy.html">Privacy Policy</a></li>
+          <li><a href="./support.html">Support</a></li>
+        </ul>
+
+        <p class="footer-copy">© 2026 Myna. All rights reserved.</p>
+      </div>
     </div>
-    <p>© 2025 Ashwin Nair</p>
   </footer>
+
+
+  <!-- ══ JS — Scroll fade-in ═══════════════════════════════ -->
+  <script>
+    // Live greeting + date in the app mock
+    (function() {
+      const now = new Date();
+      const h = now.getHours();
+      const greeting = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+      const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const dayName = days[now.getDay()];
+      const dateNum = now.getDate() + ' ' + months[now.getMonth()];
+
+      const count = Math.floor(Math.random() * 9) + 5; // 5–13
+      document.getElementById('appGreeting').textContent = greeting;
+      document.getElementById('appDayName').textContent = dayName;
+      document.getElementById('appDateNum').textContent = dateNum;
+      document.getElementById('appMeetingCount').textContent = count + ' meeting' + (count === 1 ? '' : 's');
+    })();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>

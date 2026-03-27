@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Myna</title>
+  <meta name="description" content="Myna's privacy policy. Your data never leaves your Mac." />
+  <link rel="icon" href="./assets/logo.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    :root {
+      --accent:        #DE7171;
+      --accent-soft:   rgba(222, 113, 113, 0.10);
+      --accent-mid:    rgba(222, 113, 113, 0.22);
+      --black:         #0a0a0a;
+      --bg:            #ffffff;
+      --surface:       #fafafa;
+      --border:        #e8e8e8;
+      --text-primary:  #0a0a0a;
+      --text-secondary:#525252;
+      --text-tertiary: #909090;
+      --font:          'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 7px; }
+    .nav-logo span { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+    .nav-back {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .nav-back:hover { color: var(--text-primary); text-decoration: none; }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 32px 100px;
+    }
+
+    /* ── Hero block ── */
+    .page-header {
+      margin-bottom: 56px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .privacy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-mid);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .page-header .lead {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    .meta {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── TL;DR card ── */
+    .tldr {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+      padding: 28px 28px;
+      margin-bottom: 56px;
+    }
+    .tldr h2 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .tldr ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tldr li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .tldr li .check {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── Sections ── */
+    .policy-section {
+      margin-bottom: 48px;
+    }
+
+    .policy-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .policy-section p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      margin: 12px 0 14px 0;
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .policy-section li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .policy-section li::before {
+      content: '–';
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+      font-weight: 400;
+    }
+
+    .permission-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .permission-table th {
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-primary);
+      padding: 10px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .permission-table th:first-child { border-radius: 8px 0 0 0; border-left: 1px solid var(--border); }
+    .permission-table th:last-child  { border-radius: 0 8px 0 0;  border-right: 1px solid var(--border); }
+    .permission-table td {
+      padding: 11px 16px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    .permission-table td:first-child { border-left: 1px solid var(--border); font-weight: 500; color: var(--text-primary); }
+    .permission-table td:last-child  { border-right: 1px solid var(--border); }
+    .permission-table tr:last-child td:first-child { border-radius: 0 0 0 8px; }
+    .permission-table tr:last-child td:last-child  { border-radius: 0 0 8px 0; }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ── Contact card ── */
+    .contact-card {
+      background: var(--black);
+      color: white;
+      border-radius: 16px;
+      padding: 36px 36px;
+      margin-top: 56px;
+    }
+    .contact-card h2 {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.025em;
+    }
+    .contact-card p {
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 22px;
+      line-height: 1.65;
+    }
+    .contact-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: white;
+      color: var(--black);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .contact-card a:hover { background: #f0f0f0; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+      padding: 32px 0;
+    }
+    .footer-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+    }
+    .footer-logo img { width: 24px; height: 24px; border-radius: 6px; }
+    .footer-logo span { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--text-tertiary); text-decoration: none; }
+    .footer-links a:hover { color: var(--text-primary); }
+    .footer-copy { font-size: 13px; color: var(--text-tertiary); }
+
+    @media (max-width: 768px) {
+      .nav-inner { padding: 0 20px; }
+      .page { padding: 40px 20px 60px; }
+      .page-header h1 { font-size: 30px; }
+      .permission-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .contact-card { padding: 28px 20px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo">
+        <img src="./assets/logo.png" alt="Myna" />
+        <span>Myna</span>
+      </a>
+      <a href="./index.html" class="nav-back">← Back to home</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- Header -->
+    <div class="page-header">
+      <div class="privacy-badge">🔒 Privacy Policy</div>
+      <h1>Your data stays<br />on your Mac.</h1>
+      <p class="lead">
+        Myna is built on a simple principle: your conversations are yours. We don't collect, store, or transmit any of your data to external servers — ever.
+      </p>
+      <p class="meta">Last updated: March 21, 2026 · Effective: March 21, 2026</p>
+    </div>
+
+    <!-- TL;DR -->
+    <div class="tldr">
+      <h2>The short version</h2>
+      <ul>
+        <li><span class="check">✓</span> Myna does not collect, sell, or share your personal data.</li>
+        <li><span class="check">✓</span> All transcription and AI summarization happens entirely on your device.</li>
+        <li><span class="check">✓</span> We have no servers. Your audio and transcripts never leave your Mac.</li>
+        <li><span class="check">✓</span> Myna does not use analytics, advertising, or tracking SDKs.</li>
+        <li><span class="check">✓</span> You can delete all app data at any time by deleting the app.</li>
+      </ul>
+    </div>
+
+    <!-- 1 -->
+    <div class="policy-section">
+      <h2>1. Overview</h2>
+      <p>
+        Myna ("we", "our", "the app") is a macOS application developed by Ashwin Nair. This Privacy Policy explains how Myna handles information when you use the application. We are committed to protecting your privacy. This policy applies to all versions of Myna distributed through the Mac App Store.
+      </p>
+      <p>
+        Myna is designed to function entirely on-device. We do not operate servers that receive, process, or store your data. The app has no user accounts and requires no sign-in.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 2 -->
+    <div class="policy-section">
+      <h2>2. Information Myna accesses</h2>
+      <p>
+        Myna requests access to the following system resources. All data accessed remains on your device at all times.
+      </p>
+
+      <table class="permission-table">
+        <thead>
+          <tr>
+            <th>Permission</th>
+            <th>Why it's needed</th>
+            <th>Stored?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Microphone</td>
+            <td>To capture your voice during meetings for real-time transcription.</td>
+            <td>Audio is processed in memory and discarded. Only the resulting transcript text is saved locally.</td>
+          </tr>
+          <tr>
+            <td>Screen Recording</td>
+            <td>To capture system audio from your Mac (e.g., remote participants on Zoom, Meet, Teams) via ScreenCaptureKit.</td>
+            <td>No video is captured or stored. Audio is processed in memory and discarded after transcription.</td>
+          </tr>
+          <tr>
+            <td>Speech Recognition</td>
+            <td>To convert spoken audio into text using Apple's on-device Speech framework.</td>
+            <td>Processed entirely on-device by Apple's framework. The resulting text is stored locally in the app's SwiftData database.</td>
+          </tr>
+          <tr>
+            <td>Calendar</td>
+            <td>To read your calendar events and surface upcoming meetings inside the app.</td>
+            <td>Calendar data is read at runtime and displayed in the app. It is never written to disk by Myna or sent anywhere.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        You can revoke any of these permissions at any time via <strong>System Settings → Privacy &amp; Security</strong>. Revoking a permission will disable the associated feature but will not affect the rest of the app.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 3 -->
+    <div class="policy-section">
+      <h2>3. Data we do not collect</h2>
+      <p>Myna does not collect, transmit, or process the following:</p>
+      <ul>
+        <li>Your name, email address, or any account information</li>
+        <li>Device identifiers, IP addresses, or location data</li>
+        <li>Audio recordings (raw audio is never persisted to disk)</li>
+        <li>Usage analytics, crash reports sent to us, or telemetry</li>
+        <li>Advertising identifiers (Myna contains no advertising)</li>
+        <li>Any data from third-party SDKs — Myna uses no third-party analytics or tracking libraries</li>
+      </ul>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 4 -->
+    <div class="policy-section">
+      <h2>4. How your data is stored locally</h2>
+      <p>
+        Meeting transcripts and AI-generated summaries are stored in an on-device database using Apple's SwiftData framework. This data is stored in your Mac's sandboxed application container and is protected by macOS's standard file system security.
+      </p>
+      <p>
+        If you enable iCloud Drive for Myna in System Settings, macOS may sync this data to iCloud as part of standard system behavior. This sync is controlled entirely by Apple's iCloud service and your macOS settings — Myna does not initiate or manage it.
+      </p>
+      <p>
+        To permanently delete all data stored by Myna, simply delete the application from your Mac. You may also delete individual meeting records from within the app at any time.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 5 -->
+    <div class="policy-section">
+      <h2>5. Apple Intelligence &amp; on-device AI</h2>
+      <p>
+        Myna uses Apple's <strong>FoundationModels</strong> framework to generate meeting summaries. This framework is part of Apple Intelligence and runs entirely on your device using Apple Silicon. No data is sent to Apple's servers or any third-party AI service for summarization.
+      </p>
+      <p>
+        Apple's own privacy practices for Apple Intelligence apply. You can learn more at <a href="https://www.apple.com/privacy/" target="_blank" rel="noopener">apple.com/privacy</a>.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 6 -->
+    <div class="policy-section">
+      <h2>6. Children's privacy</h2>
+      <p>
+        Myna is not directed at children under the age of 13. We do not knowingly collect any information from children. As Myna collects no user data whatsoever, there is no data to collect from any age group.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 7 -->
+    <div class="policy-section">
+      <h2>7. Third-party services</h2>
+      <p>
+        Myna does not integrate with or transmit data to any third-party services, APIs, or platforms. The only external framework used for intelligence features is Apple's own on-device FoundationModels (Apple Intelligence), which operates locally.
+      </p>
+      <p>
+        Distribution of Myna through the Mac App Store is subject to Apple's Privacy Policy, which you can read at <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">apple.com/legal/privacy</a>.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 8 -->
+    <div class="policy-section">
+      <h2>8. Changes to this policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top of this page and — for significant changes — notify users via an in-app notice or App Store release notes.
+      </p>
+      <p>
+        Continued use of Myna after any changes constitutes your acceptance of the updated policy. We encourage you to review this page periodically.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 9 -->
+    <div class="policy-section">
+      <h2>9. Your rights</h2>
+      <p>
+        Because Myna does not collect or store any personal data on external servers, there is no data for us to provide, correct, or delete on your behalf. All data generated by Myna resides locally on your device and is entirely under your control.
+      </p>
+      <p>
+        If you are a resident of the European Union (GDPR), California (CCPA), or any other jurisdiction with privacy regulations, our data practices — collecting nothing and storing everything locally — are fully compliant by design.
+      </p>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-card">
+      <h2>Questions about privacy?</h2>
+      <p>
+        We're happy to answer any questions about how Myna handles your data. Reach out and we'll get back to you promptly.
+      </p>
+      <a href="./support.html">Contact support →</a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <a href="./index.html" class="footer-logo">
+        <img src="./assets/logo.png" alt="Myna" />
+        <span>Myna</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="./privacy.html">Privacy Policy</a></li>
+        <li><a href="./support.html">Support</a></li>
+        <li><a href="./index.html">Home</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 Myna. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
