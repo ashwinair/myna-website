@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use — Myna</title>
+  <meta name="description" content="Myna Terms of Use. Subscription terms, license, and your rights as a user." />
+  <link rel="icon" href="./assets/logo.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    :root {
+      --accent:        #DE7171;
+      --accent-soft:   rgba(222, 113, 113, 0.10);
+      --accent-mid:    rgba(222, 113, 113, 0.22);
+      --black:         #0a0a0a;
+      --bg:            #ffffff;
+      --surface:       #fafafa;
+      --border:        #e8e8e8;
+      --text-primary:  #0a0a0a;
+      --text-secondary:#525252;
+      --text-tertiary: #909090;
+      --font:          'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 7px; }
+    .nav-logo span { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+    .nav-back {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    .nav-back:hover { color: var(--text-primary); text-decoration: none; }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 32px 100px;
+    }
+
+    /* ── Hero block ── */
+    .page-header {
+      margin-bottom: 56px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .terms-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-mid);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .page-header .lead {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    .meta {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── TL;DR card ── */
+    .tldr {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+      padding: 28px 28px;
+      margin-bottom: 56px;
+    }
+    .tldr h2 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .tldr ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tldr li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .tldr li .check {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── Sections ── */
+    .policy-section {
+      margin-bottom: 48px;
+    }
+
+    .policy-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .policy-section p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      margin: 12px 0 14px 0;
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .policy-section li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .policy-section li::before {
+      content: '–';
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+      font-weight: 400;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ── Contact card ── */
+    .contact-card {
+      background: var(--black);
+      color: white;
+      border-radius: 16px;
+      padding: 36px 36px;
+      margin-top: 56px;
+    }
+    .contact-card h2 {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.025em;
+    }
+    .contact-card p {
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 22px;
+      line-height: 1.65;
+    }
+    .contact-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: white;
+      color: var(--black);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .contact-card a:hover { background: #f0f0f0; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+      padding: 32px 0;
+    }
+    .footer-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+    }
+    .footer-logo img { width: 24px; height: 24px; border-radius: 6px; }
+    .footer-logo span { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--text-tertiary); text-decoration: none; }
+    .footer-links a:hover { color: var(--text-primary); }
+    .footer-copy { font-size: 13px; color: var(--text-tertiary); }
+
+    @media (max-width: 768px) {
+      .nav-inner { padding: 0 20px; }
+      .page { padding: 40px 20px 60px; }
+      .page-header h1 { font-size: 30px; }
+      .contact-card { padding: 28px 20px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo">
+        <img src="./assets/logo.png" alt="Myna" />
+        <span>Myna</span>
+      </a>
+      <a href="./index.html" class="nav-back">← Back to home</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- Header -->
+    <div class="page-header">
+      <div class="terms-badge">📄 Terms of Use</div>
+      <h1>Terms of Use</h1>
+      <p class="lead">
+        These terms govern your use of Myna, including its subscription plans. By downloading or using Myna, you agree to these terms.
+      </p>
+      <p class="meta">Last updated: April 4, 2026 · Effective: April 4, 2026</p>
+    </div>
+
+    <!-- TL;DR -->
+    <div class="tldr">
+      <h2>The short version</h2>
+      <ul>
+        <li><span class="check">✓</span> Myna offers monthly and yearly auto-renewable subscriptions with a free trial.</li>
+        <li><span class="check">✓</span> You can cancel anytime via Mac App Store settings — no cancellation fees.</li>
+        <li><span class="check">✓</span> Refunds are handled by Apple, not us.</li>
+        <li><span class="check">✓</span> All your transcripts and data belong to you.</li>
+        <li><span class="check">✓</span> Please don't reverse-engineer or redistribute the app.</li>
+      </ul>
+    </div>
+
+    <!-- 1 -->
+    <div class="policy-section">
+      <h2>1. Acceptance of Terms</h2>
+      <p>
+        By downloading, installing, or using Myna ("the App"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree, do not use the App.
+      </p>
+      <p>
+        These Terms apply to all versions of Myna distributed through the Mac App Store. Myna is developed by Ashwin Nair ("we", "us", "our").
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 2 -->
+    <div class="policy-section">
+      <h2>2. License</h2>
+      <p>
+        Subject to these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to download and use Myna on Apple devices you own or control, solely for your personal, non-commercial purposes.
+      </p>
+      <p>You may not:</p>
+      <ul>
+        <li>Copy, modify, or distribute the App or any part of it</li>
+        <li>Reverse-engineer, decompile, or attempt to extract the source code</li>
+        <li>Sell, sublicense, or rent access to the App</li>
+        <li>Remove or alter any proprietary notices or labels</li>
+        <li>Use the App for any unlawful purpose</li>
+      </ul>
+      <p>
+        Your use of the App is also governed by Apple's standard End User License Agreement (EULA) for App Store applications, available at <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">apple.com/legal/internet-services/itunes/dev/stdeula</a>.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 3 -->
+    <div class="policy-section">
+      <h2>3. Subscriptions &amp; Billing</h2>
+      <p>
+        Myna offers an optional Pro subscription that unlocks unlimited meetings and AI summaries. The following terms apply to all subscription purchases:
+      </p>
+      <ul>
+        <li><strong>Plans available:</strong> Monthly and Yearly auto-renewable subscriptions.</li>
+        <li><strong>Free trial:</strong> New subscribers may receive a free trial period (currently 7 days). The trial automatically converts to a paid subscription at the end of the trial period unless cancelled beforehand.</li>
+        <li><strong>Auto-renewal:</strong> Subscriptions automatically renew at the end of each billing period (monthly or yearly) at the current subscription price unless you cancel at least 24 hours before the renewal date.</li>
+        <li><strong>Billing:</strong> Payment is charged to your Apple ID account at confirmation of purchase and at the start of each renewal period.</li>
+        <li><strong>Price changes:</strong> We may change subscription prices. You will be notified in advance and your subscription will not renew at a new price without your explicit consent, as required by Apple.</li>
+      </ul>
+      <p>
+        Subscription purchases are processed entirely by Apple through the Mac App Store. We do not collect or store your payment information.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 4 -->
+    <div class="policy-section">
+      <h2>4. Cancellation</h2>
+      <p>
+        You may cancel your Myna subscription at any time through your Mac App Store account settings:
+      </p>
+      <ul>
+        <li>Open the App Store → click your name → Manage Subscriptions</li>
+        <li>Find Myna and select Cancel Subscription</li>
+      </ul>
+      <p>
+        Cancellation takes effect at the end of the current billing period. You will retain access to Pro features until that date. There are no cancellation fees or penalties.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 5 -->
+    <div class="policy-section">
+      <h2>5. Refunds</h2>
+      <p>
+        All purchases are processed by Apple through the Mac App Store. We do not have the ability to issue refunds directly. To request a refund, please use Apple's refund process:
+      </p>
+      <ul>
+        <li>Visit <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener">reportaproblem.apple.com</a></li>
+        <li>Sign in with your Apple ID and find your Myna purchase</li>
+        <li>Select "Request a Refund" and follow the prompts</li>
+      </ul>
+      <p>
+        Refund eligibility is determined solely by Apple's policies.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 6 -->
+    <div class="policy-section">
+      <h2>6. Your Content</h2>
+      <p>
+        Myna transcribes and summarises your meetings locally on your device. All transcripts, summaries, and meeting notes generated by the App are yours. We do not claim ownership of any content you create using Myna.
+      </p>
+      <p>
+        Because Myna operates entirely on-device and has no servers, we have no access to your content. You are solely responsible for how you use, share, or store the transcripts generated by the App.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 7 -->
+    <div class="policy-section">
+      <h2>7. Acceptable Use</h2>
+      <p>
+        You agree to use Myna only for lawful purposes and in accordance with these Terms. You must not use Myna to:
+      </p>
+      <ul>
+        <li>Record conversations without the knowledge or consent of all participants, where required by applicable law</li>
+        <li>Violate any applicable local, national, or international law or regulation</li>
+        <li>Infringe upon the privacy, intellectual property, or other rights of any third party</li>
+      </ul>
+      <p>
+        You are solely responsible for ensuring your use of Myna complies with all applicable recording consent laws in your jurisdiction.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 8 -->
+    <div class="policy-section">
+      <h2>8. Intellectual Property</h2>
+      <p>
+        Myna, its name, logo, design, code, and all related materials are the intellectual property of Ashwin Nair. All rights not expressly granted in these Terms are reserved.
+      </p>
+      <p>
+        Nothing in these Terms transfers any ownership of intellectual property rights to you. The license granted in Section 2 is the entirety of your rights with respect to the App.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 9 -->
+    <div class="policy-section">
+      <h2>9. Disclaimer of Warranties</h2>
+      <p>
+        Myna is provided "as is" and "as available" without warranty of any kind, express or implied. To the fullest extent permitted by applicable law, we disclaim all warranties, including but not limited to:
+      </p>
+      <ul>
+        <li>Implied warranties of merchantability, fitness for a particular purpose, and non-infringement</li>
+        <li>That the App will be uninterrupted, error-free, or free of viruses or other harmful components</li>
+        <li>The accuracy or completeness of transcriptions or AI-generated summaries</li>
+      </ul>
+      <p>
+        Transcription accuracy depends on audio quality, background noise, accents, and Apple's on-device speech recognition models. We make no guarantee of transcription or summary quality.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 10 -->
+    <div class="policy-section">
+      <h2>10. Limitation of Liability</h2>
+      <p>
+        To the fullest extent permitted by applicable law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use Myna, even if we have been advised of the possibility of such damages.
+      </p>
+      <p>
+        Our total liability to you for any claim arising out of or related to these Terms or the App shall not exceed the amount you paid us in the twelve (12) months immediately preceding the claim.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 11 -->
+    <div class="policy-section">
+      <h2>11. Termination</h2>
+      <p>
+        We reserve the right to suspend or terminate your access to Myna at any time if you materially violate these Terms. Upon termination, your license to use the App ceases immediately.
+      </p>
+      <p>
+        You may stop using the App and cancel your subscription at any time as described in Section 4.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 12 -->
+    <div class="policy-section">
+      <h2>12. Changes to These Terms</h2>
+      <p>
+        We may update these Terms from time to time. When we do, we will update the "Last updated" date at the top of this page. For significant changes, we will notify you via an in-app notice or App Store release notes.
+      </p>
+      <p>
+        Continued use of Myna after updated Terms are posted constitutes your acceptance of the changes.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 13 -->
+    <!-- <div class="policy-section">
+      <h2>13. Governing Law</h2>
+      <p>
+        These Terms are governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in India.
+      </p>
+    </div> -->
+
+    <!-- Contact -->
+    <div class="contact-card">
+      <h2>Questions about these terms?</h2>
+      <p>
+        If you have any questions about these Terms of Use, please reach out and we'll get back to you promptly.
+      </p>
+      <a href="./support.html">Contact support →</a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <a href="./index.html" class="footer-logo">
+        <img src="./assets/logo.png" alt="Myna" />
+        <span>Myna</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="./privacy.html">Privacy Policy</a></li>
+        <li><a href="./terms.html">Terms of Use</a></li>
+        <li><a href="./support.html">Support</a></li>
+        <li><a href="./index.html">Home</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 Myna. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
