@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Press kit — Myna</title>
+  <meta name="description" content="Facts, description, icon and banner for Myna, the meeting recorder for Mac that transcribes and summarizes on-device." />
+  <link rel="icon" href="./assets/logo.png" type="image/png" />
+  <link rel="canonical" href="https://myna.ashwinair.app/press" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://myna.ashwinair.app/press" />
+  <meta property="og:site_name" content="Myna" />
+  <meta property="og:title" content="Press kit — Myna" />
+  <meta property="og:description" content="Facts, description, icon and banner for Myna, the meeting recorder for Mac that transcribes and summarizes on-device." />
+  <meta property="og:image" content="https://myna.ashwinair.app/assets/og-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+
+    :root {
+      --accent:        #DE7171;
+      --accent-soft:   rgba(222, 113, 113, 0.10);
+      --accent-mid:    rgba(222, 113, 113, 0.22);
+      --bg:            #ffffff;
+      --surface:       #fafafa;
+      --border:        #e8e8e8;
+      --text-primary:  #0a0a0a;
+      --text-secondary:#525252;
+      --text-tertiary: #909090;
+      --font:          'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo:hover { text-decoration: none; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 7px; }
+    .nav-logo span { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+    .nav-back { font-size: 13.5px; font-weight: 500; color: var(--text-secondary); }
+    .nav-back:hover { color: var(--text-primary); text-decoration: none; }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 32px 100px;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .badge {
+      display: inline-flex;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-mid);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .lead { font-size: 17px; color: var(--text-secondary); line-height: 1.65; }
+
+    .block { margin-bottom: 52px; }
+    .block h2 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+    }
+    .block p { color: var(--text-secondary); margin-bottom: 14px; }
+    .block p strong { color: var(--text-primary); font-weight: 600; }
+
+    .facts { border-top: 1px solid var(--border); }
+    .fact {
+      display: flex;
+      gap: 24px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+    .fact dt { flex: 0 0 150px; color: var(--text-tertiary); font-weight: 500; }
+    .fact dd { color: var(--text-primary); }
+
+    .assets { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; }
+    .asset {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .asset:hover { text-decoration: none; border-color: var(--accent-mid); }
+    .asset-preview {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 150px;
+    }
+    .asset-preview img { max-width: 100%; height: auto; display: block; }
+    .asset-preview img.icon { width: 112px; height: 112px; border-radius: 25px; }
+    .asset-preview img.banner { border-radius: 8px; border: 1px solid var(--border); }
+    .asset-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .asset-meta { font-size: 13px; color: var(--text-tertiary); }
+
+    footer { border-top: 1px solid var(--border); padding: 36px 32px; }
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 9px; }
+    .footer-logo:hover { text-decoration: none; }
+    .footer-logo img { width: 24px; height: 24px; border-radius: 6px; }
+    .footer-logo span { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .footer-links { display: flex; gap: 22px; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: 13px; color: var(--text-secondary); }
+    .footer-links a:hover { color: var(--text-primary); text-decoration: none; }
+    .footer-copy { font-size: 13px; color: var(--text-tertiary); }
+
+    @media (max-width: 600px) {
+      .page { padding: 48px 20px 72px; }
+      .nav-inner { padding: 0 20px; }
+      .page-header h1 { font-size: 32px; }
+      .fact { flex-direction: column; gap: 2px; }
+      .fact dt { flex: none; }
+      .assets { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo">
+        <img src="./assets/logo.png" alt="Myna" />
+        <span>Myna</span>
+      </a>
+      <a href="./index.html" class="nav-back">← Back to home</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <div class="page-header">
+      <div class="badge">Press kit</div>
+      <h1>Writing about Myna?</h1>
+      <p class="lead">Everything here is free to use: the description, the facts, the icon and the banner. No need to ask first. For questions, a review copy or anything else, write to <a href="mailto:support@ashwinair.app">support@ashwinair.app</a>.</p>
+    </div>
+
+    <div class="block">
+      <h2>In one sentence</h2>
+      <p><strong>Myna is a meeting recorder for Mac that transcribes and summarizes your calls entirely on your Mac, with no bot in the meeting and no account.</strong></p>
+    </div>
+
+    <div class="block">
+      <h2>In a paragraph</h2>
+      <p>Myna listens to your microphone and your Mac's audio at the same time, so it works with Zoom, Google Meet, Microsoft Teams, FaceTime or a conversation across a table. It transcribes live using Apple's on-device speech recognition, and when the meeting ends it writes a summary with Apple Intelligence. Nothing is uploaded. There are no servers to upload it to, no account to create, and no analytics in the app.</p>
+      <p>It is made by one independent developer and sold on the Mac App Store. It is free for three meetings a month, and a subscription removes the limit.</p>
+    </div>
+
+    <div class="block">
+      <h2>Fact sheet</h2>
+      <dl class="facts">
+        <div class="fact"><dt>Name</dt><dd>Myna: AI Meeting Recorder</dd></div>
+        <div class="fact"><dt>Platform</dt><dd>macOS 26 or later, Apple Silicon</dd></div>
+        <div class="fact"><dt>Price</dt><dd>Free for 3 recorded meetings a month, summaries included. Myna Pro, with no limit, is $29.99 a year or $4.99 a month.</dd></div>
+        <div class="fact"><dt>Download</dt><dd><a href="https://apps.apple.com/app/id6761560187?mt=12">Mac App Store</a></dd></div>
+        <div class="fact"><dt>Transcription</dt><dd>Apple's on-device speech recognition. Works offline.</dd></div>
+        <div class="fact"><dt>Summaries</dt><dd>Apple Intelligence, on-device. Templates for 1:1s, standups, interviews, sales calls and more.</dd></div>
+        <div class="fact"><dt>Privacy</dt><dd>No servers, no account, no analytics or tracking. Notes stay on the Mac.</dd></div>
+        <div class="fact"><dt>Languages</dt><dd>English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese</dd></div>
+        <div class="fact"><dt>Current version</dt><dd>1.7, November 2026</dd></div>
+        <div class="fact"><dt>Website</dt><dd><a href="https://myna.ashwinair.app/">myna.ashwinair.app</a></dd></div>
+        <div class="fact"><dt>Contact</dt><dd><a href="mailto:support@ashwinair.app">support@ashwinair.app</a></dd></div>
+      </dl>
+    </div>
+
+    <div class="block">
+      <h2>New in 1.7</h2>
+      <p>Someone wrote in after losing a meeting: they shut their Mac down without pressing Stop, and the transcript was gone. Until then Myna kept a recording in memory until you saved it.</p>
+      <p>Version 1.7 fixes that. Myna now saves a draft every 15 seconds while it records, saves on quit, logout and shutdown, and offers to recover the meeting the next time it opens. You can also generate a summary for a meeting you saved earlier without one.</p>
+    </div>
+
+    <div class="block">
+      <h2>Images</h2>
+      <div class="assets">
+        <a class="asset" href="./assets/logo.png" download="myna-icon.png">
+          <div class="asset-preview"><img class="icon" src="./assets/logo.png" alt="Myna app icon" width="112" height="112" /></div>
+          <div>
+            <div class="asset-name">App icon</div>
+            <div class="asset-meta">PNG, 1024 × 1024</div>
+          </div>
+        </a>
+        <a class="asset" href="./assets/og-banner.png" download="myna-banner.png">
+          <div class="asset-preview"><img class="banner" src="./assets/og-banner.png" alt="Myna banner: AI meeting notes for Mac" width="1200" height="630" /></div>
+          <div>
+            <div class="asset-name">Banner</div>
+            <div class="asset-meta">PNG, 1200 × 630</div>
+          </div>
+        </a>
+      </div>
+      <p style="margin-top:16px;">Screenshots of the app are on its <a href="https://apps.apple.com/app/id6761560187?mt=12">Mac App Store page</a>.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="./index.html" class="footer-logo">
+        <img src="./assets/logo.png" alt="Myna" />
+        <span>Myna</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="./privacy.html">Privacy Policy</a></li>
+        <li><a href="./terms.html">Terms of Use</a></li>
+        <li><a href="./support.html">Support</a></li>
+        <li><a href="./index.html">Home</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 Myna. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

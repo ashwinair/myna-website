@@ -288,6 +288,7 @@
 
     .form-success {
       display: none;
+      margin-top: 16px;
       background: rgba(222,113,113,0.12);
       border: 1px solid rgba(222,113,113,0.25);
       border-radius: 10px;
@@ -552,22 +553,16 @@
     <!-- Contact Form -->
     <div class="contact-card">
       <h2>Still need help?</h2>
-      <p>Send us a message and we'll get back to you within 24 hours, usually sooner.</p>
+      <p>Write your message below and press the button. It opens in your mail app, addressed to <a href="mailto:support@ashwinair.app">support@ashwinair.app</a> and ready to send. We reply within 24 hours, usually sooner.</p>
 
       <form class="contact-form" id="contactForm">
-        <div class="form-row">
-          <div class="form-field">
-            <label>Your name</label>
-            <input type="text" placeholder="Jane Smith" required />
-          </div>
-          <div class="form-field">
-            <label>Email address</label>
-            <input type="email" placeholder="jane@example.com" required />
-          </div>
+        <div class="form-field">
+          <label for="contactName">Your name</label>
+          <input type="text" id="contactName" placeholder="Jane Smith" />
         </div>
         <div class="form-field">
-          <label>Topic</label>
-          <select>
+          <label for="contactTopic">Topic</label>
+          <select id="contactTopic">
             <option value="">Select a topic…</option>
             <option>Transcription not working</option>
             <option>Apple Intelligence / Summary issue</option>
@@ -579,18 +574,18 @@
           </select>
         </div>
         <div class="form-field">
-          <label>macOS version</label>
-          <input type="text" placeholder="e.g. macOS 26.0, M3 MacBook Pro" />
+          <label for="contactSystem">macOS version</label>
+          <input type="text" id="contactSystem" placeholder="e.g. macOS 26.0, M3 MacBook Pro" />
         </div>
         <div class="form-field">
-          <label>Message</label>
-          <textarea rows="5" placeholder="Describe the issue in as much detail as you can…" required></textarea>
+          <label for="contactMessage">Message</label>
+          <textarea id="contactMessage" rows="5" placeholder="Describe the issue in as much detail as you can…" required></textarea>
         </div>
-        <button type="submit" class="form-submit">Send message →</button>
+        <button type="submit" class="form-submit">Open in your mail app →</button>
       </form>
 
       <div class="form-success" id="formSuccess">
-        ✓ &nbsp;Message received! We'll get back to you within 24 hours.
+        Your mail app should have opened with the message filled in. Press send there to reach us. If nothing opened, email <a href="mailto:support@ashwinair.app">support@ashwinair.app</a> directly.
       </div>
     </div>
 
@@ -624,10 +619,21 @@
       });
     });
 
-    // Contact form (demo — replace with your backend or Formspree)
+    // Contact form: there is no server behind this site, so the message is handed to the
+    // visitor's own mail app, addressed to support, with the subject and body filled in.
     document.getElementById('contactForm').addEventListener('submit', e => {
       e.preventDefault();
-      document.getElementById('contactForm').style.display = 'none';
+      const value = id => document.getElementById(id).value.trim();
+      const topic = value('contactTopic');
+      const name = value('contactName');
+      const system = value('contactSystem');
+      const subject = topic ? 'Myna support: ' + topic : 'Myna support';
+      const lines = [value('contactMessage'), ''];
+      if (name) lines.push('Name: ' + name);
+      if (system) lines.push('System: ' + system);
+      window.location.href = 'mailto:support@ashwinair.app'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(lines.join('\n'));
       document.getElementById('formSuccess').style.display = 'block';
     });
   </script>

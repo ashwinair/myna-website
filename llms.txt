@@ -1,0 +1,24 @@
+# Myna
+
+> Myna is a meeting recorder and note-taker for Mac. It transcribes meetings live and writes a summary afterwards, entirely on the Mac. No bot joins the call, no audio or text is uploaded, and there is no account.
+
+## Facts
+
+- Platform: macOS 26 or later, Apple Silicon only. Mac App Store: https://apps.apple.com/app/id6761560187?mt=12
+- What it captures: the microphone and the Mac's system audio at the same time, so it works with Zoom, Google Meet, Microsoft Teams, FaceTime, Slack huddles, browser calls and in-person conversations.
+- Transcription: Apple's on-device speech recognition. Works offline once the language's speech model has downloaded.
+- Summaries: Apple Intelligence, on-device. Needs Apple Intelligence turned on in System Settings. Templates for general meetings, 1:1s, standups, interviews, sales calls, customer discovery and project syncs.
+- Privacy: no servers, no account, no analytics or tracking SDKs. Transcripts and summaries are stored on the Mac.
+- Other features: calendar-aware (shows upcoming meetings and detects calls starting), autosaves a draft every 15 seconds and recovers it after a crash or shutdown, export and share notes as text.
+- Interface languages: English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese.
+- Price: free for 3 recorded meetings a month, with transcription and summaries included. Myna Pro removes the limit: $29.99 a year or $4.99 a month.
+- Not included: no Windows, iPhone or web version, no team workspace, no cloud sync.
+- Made by an independent developer. Contact: support@ashwinair.app
+
+## Pages
+
+- [Home](https://myna.ashwinair.app/): overview, features, pricing and common questions
+- [Press kit](https://myna.ashwinair.app/press): description, fact sheet, icon and banner
+- [Support](https://myna.ashwinair.app/support): requirements and troubleshooting
+- [Privacy policy](https://myna.ashwinair.app/privacy)
+- [Terms of use](https://myna.ashwinair.app/terms)

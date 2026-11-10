@@ -13,15 +13,15 @@
   <meta property="og:site_name" content="Myna" />
   <meta property="og:title" content="Myna — AI Meeting Notes for Mac" />
   <meta property="og:description" content="Myna listens, transcribes, and summarizes every meeting — entirely on your Mac. Powered by Apple Intelligence. Zero servers. Zero cloud." />
-  <meta property="og:image" content="https://myna.ashwinair.app/assets/logo.png" />
-  <meta property="og:image:width" content="1024" />
-  <meta property="og:image:height" content="1024" />
-  <meta property="og:image:alt" content="Myna app icon" />
+  <meta property="og:image" content="https://myna.ashwinair.app/assets/og-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Myna: AI meeting notes for Mac. Transcribed and summarized on your Mac." />
 
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Myna — AI Meeting Notes for Mac" />
   <meta name="twitter:description" content="Myna listens, transcribes, and summarizes every meeting — entirely on your Mac. Powered by Apple Intelligence. Zero servers. Zero cloud." />
-  <meta name="twitter:image" content="https://myna.ashwinair.app/assets/logo.png" />
+  <meta name="twitter:image" content="https://myna.ashwinair.app/assets/og-banner.png" />
 
   <script type="application/ld+json">
   {
@@ -56,6 +56,78 @@
         "description": "Unlimited recorded meetings, billed yearly",
         "price": "29.99",
         "priceCurrency": "USD"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does Myna join my call as a bot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Myna runs on your Mac and listens to your microphone and your Mac's audio. Nothing joins the call and nothing shows up in the participant list. Recording rules differ from place to place, so tell people you're taking notes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does my audio or transcript leave my Mac?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Transcription uses Apple's on-device speech recognition, and summaries are written by Apple Intelligence on your Mac. Myna has no servers and no account, and the app contains no analytics or tracking."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which meeting apps does it work with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Any app that plays sound on your Mac: Zoom, Google Meet, Microsoft Teams, FaceTime, Slack huddles, or a call in your browser. It also works for in-person conversations, using the microphone alone."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What do I need to run it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Mac with Apple Silicon running macOS 26 or later. Summaries need Apple Intelligence turned on in System Settings. Transcription works without it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does it cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Myna is free for 3 recorded meetings a month, with transcription and summaries included. Myna Pro removes the limit for $29.99 a year or $4.99 a month. You don't need an account for either."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work offline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Once the speech model for your language has downloaded, transcription and summaries both work with no internet connection."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which languages does it support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The app is available in English, Simplified Chinese, Japanese, German, French, Spanish and Brazilian Portuguese. Transcription works in the languages Apple's on-device speech recognition supports on your Mac."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Myna different from Otter, Fireflies or Granola?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Otter and Fireflies are cloud services that, by default, send a bot into your call. Granola skips the bot and records from your computer, as Myna does, but it still sends the audio to the cloud to be transcribed and keeps your notes on its servers. Myna does all of it on your Mac and has no servers. The trade-off is that it only runs on recent Macs, and there is no web app, phone app or shared team workspace."
+        }
       }
     ]
   }
@@ -630,6 +702,38 @@
       max-width: 480px;
       line-height: 1.6;
       margin-bottom: 60px;
+    }
+
+    /* ─── FAQ ────────────────────────────────────────────── */
+    .faq-list { max-width: 760px; }
+    .faq-list details { border-top: 1px solid var(--border); }
+    .faq-list details:last-child { border-bottom: 1px solid var(--border); }
+    .faq-list summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 22px 0;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after {
+      content: "+";
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      line-height: 1;
+    }
+    .faq-list details[open] summary::after { content: "–"; }
+    .faq-list details p {
+      color: var(--text-secondary);
+      font-size: 16px;
+      line-height: 1.65;
+      padding: 0 40px 24px 0;
     }
 
     /* ─── Features ───────────────────────────────────────── */
@@ -1681,6 +1785,51 @@
   </section>
 
 
+  <!-- ══ FAQ ════════════════════════════════════════════════ -->
+  <section id="faq">
+    <div class="container">
+      <span class="section-tag">Questions</span>
+      <h2 class="section-title">The short answers.</h2>
+      <p class="section-sub">What people ask before they install.</p>
+
+      <div class="faq-list">
+        <details>
+          <summary>Does Myna join my call as a bot?</summary>
+          <p>No. Myna runs on your Mac and listens to your microphone and your Mac's audio. Nothing joins the call and nothing shows up in the participant list. Recording rules differ from place to place, so tell people you're taking notes.</p>
+        </details>
+        <details>
+          <summary>Does my audio or transcript leave my Mac?</summary>
+          <p>No. Transcription uses Apple's on-device speech recognition, and summaries are written by Apple Intelligence on your Mac. Myna has no servers and no account, and the app contains no analytics or tracking.</p>
+        </details>
+        <details>
+          <summary>Which meeting apps does it work with?</summary>
+          <p>Any app that plays sound on your Mac: Zoom, Google Meet, Microsoft Teams, FaceTime, Slack huddles, or a call in your browser. It also works for in-person conversations, using the microphone alone.</p>
+        </details>
+        <details>
+          <summary>What do I need to run it?</summary>
+          <p>A Mac with Apple Silicon running macOS 26 or later. Summaries need Apple Intelligence turned on in System Settings. Transcription works without it.</p>
+        </details>
+        <details>
+          <summary>What does it cost?</summary>
+          <p>Myna is free for 3 recorded meetings a month, with transcription and summaries included. Myna Pro removes the limit for $29.99 a year or $4.99 a month. You don't need an account for either.</p>
+        </details>
+        <details>
+          <summary>Does it work offline?</summary>
+          <p>Yes. Once the speech model for your language has downloaded, transcription and summaries both work with no internet connection.</p>
+        </details>
+        <details>
+          <summary>Which languages does it support?</summary>
+          <p>The app is available in English, Simplified Chinese, Japanese, German, French, Spanish and Brazilian Portuguese. Transcription works in the languages Apple's on-device speech recognition supports on your Mac.</p>
+        </details>
+        <details>
+          <summary>How is Myna different from Otter, Fireflies or Granola?</summary>
+          <p>Otter and Fireflies are cloud services that, by default, send a bot into your call. Granola skips the bot and records from your computer, as Myna does, but it still sends the audio to the cloud to be transcribed and keeps your notes on its servers. Myna does all of it on your Mac and has no servers. The trade-off is that it only runs on recent Macs, and there is no web app, phone app or shared team workspace.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+
   <!-- ══ FINAL CTA ══════════════════════════════════════════ -->
   <section class="final-cta">
     <div class="container fade-up">
@@ -1717,6 +1866,7 @@
           <li><a href="./privacy.html">Privacy Policy</a></li>
           <li><a href="./terms.html">Terms of Use</a></li>
           <li><a href="./support.html">Support</a></li>
+          <li><a href="./press.html">Press</a></li>
         </ul>
 
         <a href="https://www.trymacapps.com" target="_blank" rel="noopener" class="footer-badge">
