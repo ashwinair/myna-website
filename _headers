@@ -1,0 +1,7 @@
+# The same site is also served at myna-web.pages.dev. Keep that copy out of search
+# results so Google indexes only myna.ashwinair.app.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex

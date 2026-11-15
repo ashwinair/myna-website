@@ -1,4 +1,4 @@
-# Myna
+# Myna: AI Meeting Recorder (Mac)
 
 > Myna is a meeting recorder and note-taker for Mac. It transcribes meetings live and writes a summary afterwards, entirely on the Mac. No bot joins the call, no audio or text is uploaded, and there is no account.
 
@@ -11,9 +11,10 @@
 - Privacy: no servers, no account, no analytics or tracking SDKs. Transcripts and summaries are stored on the Mac.
 - Other features: calendar-aware (shows upcoming meetings and detects calls starting), autosaves a draft every 15 seconds and recovers it after a crash or shutdown, export and share notes as text.
 - Interface languages: English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese.
-- Price: free for 3 recorded meetings a month, with transcription and summaries included. Myna Pro removes the limit: $29.99 a year or $4.99 a month.
+- Price: free for 3 recorded meetings a month, with transcription and summaries included. Myna Pro removes the limit: $29.99 a year or $7.99 a month.
 - Not included: no Windows, iPhone or web version, no team workspace, no cloud sync.
-- Made by an independent developer. Contact: support@ashwinair.app
+- Not related to meetmyna.com (a Windows and Mac call recorder) or Hello Myna (a CRM assistant), which share the name.
+- Made by an independent developer, Ashwin Nair. Contact: support@ashwinair.app
 
 ## Pages
 
