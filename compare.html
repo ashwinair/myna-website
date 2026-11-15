@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Myna vs Otter, Granola, Fireflies and anarlog — Private AI Meeting Notes for Mac</title>
+  <meta name="description" content="An honest comparison of Myna with Otter, Granola, Fireflies and anarlog: bots, where your audio goes, accounts, offline use, platforms and price. Including where the others are better." />
+  <link rel="icon" href="/assets/logo.png" type="image/png" />
+  <link rel="canonical" href="https://myna.ashwinair.app/compare" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://myna.ashwinair.app/compare" />
+  <meta property="og:site_name" content="Myna" />
+  <meta property="og:title" content="Myna vs Otter, Granola, Fireflies and anarlog" />
+  <meta property="og:description" content="Bots, where your audio goes, accounts, offline use, platforms and price, compared honestly." />
+  <meta property="og:image" content="https://myna.ashwinair.app/assets/og-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Myna vs Otter, Granola, Fireflies and anarlog",
+    "description": "An honest comparison of AI meeting note apps for Mac: bots, where audio is processed, accounts, offline use, platforms and price.",
+    "url": "https://myna.ashwinair.app/compare",
+    "dateModified": "2026-11-15",
+    "author": { "@type": "Person", "name": "Ashwin Nair" },
+    "publisher": { "@type": "Person", "name": "Ashwin Nair" },
+    "about": { "@type": "SoftwareApplication", "name": "Myna: AI Meeting Recorder", "operatingSystem": "macOS 26 or later", "applicationCategory": "BusinessApplication", "url": "https://myna.ashwinair.app/" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+
+    :root {
+      --accent:        #DE7171;
+      --accent-soft:   rgba(222, 113, 113, 0.10);
+      --accent-mid:    rgba(222, 113, 113, 0.22);
+      --bg:            #ffffff;
+      --surface:       #fafafa;
+      --border:        #e8e8e8;
+      --text-primary:  #0a0a0a;
+      --text-secondary:#525252;
+      --text-tertiary: #909090;
+      --font:          'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body { font-family: var(--font); background: var(--bg); color: var(--text-primary); font-size: 16px; line-height: 1.7; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 32px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo:hover { text-decoration: none; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 7px; }
+    .nav-logo span { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+    .nav-back { font-size: 13.5px; font-weight: 500; color: var(--text-secondary); }
+    .nav-back:hover { color: var(--text-primary); text-decoration: none; }
+
+    .page { max-width: 860px; margin: 0 auto; padding: 72px 32px 100px; }
+
+    .page-header { margin-bottom: 44px; padding-bottom: 36px; border-bottom: 1px solid var(--border); }
+    .badge { display: inline-flex; background: var(--accent-soft); border: 1px solid var(--accent-mid); color: var(--accent); font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; margin-bottom: 20px; }
+    h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.12; margin-bottom: 16px; }
+    .lead { font-size: 17px; color: var(--text-secondary); line-height: 1.65; }
+    .lead + .lead { margin-top: 12px; }
+
+    h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.2; margin: 56px 0 14px; }
+    h3 { font-size: 15px; font-weight: 700; margin: 22px 0 8px; }
+    p { color: var(--text-secondary); margin-bottom: 12px; }
+    ul.points { margin: 0 0 12px 20px; color: var(--text-secondary); }
+    ul.points li { margin-bottom: 6px; }
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; margin-top: 8px; }
+    table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 14px; line-height: 1.45; }
+    th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    thead th { background: var(--surface); font-weight: 700; font-size: 13px; color: var(--text-primary); }
+    tbody th { font-weight: 600; color: var(--text-primary); width: 150px; background: var(--surface); }
+    td { color: var(--text-secondary); }
+    td.myna, th.myna { background: var(--accent-soft); color: var(--text-primary); }
+    .note { font-size: 13px; color: var(--text-tertiary); margin-top: 10px; }
+
+    .choose { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+    .choose > div { border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; background: var(--surface); }
+    .choose > div.mine { border-color: var(--accent-mid); background: var(--accent-soft); }
+    .choose h3 { margin-top: 0; }
+    .choose ul { margin-left: 18px; color: var(--text-secondary); font-size: 15px; }
+    .choose li { margin-bottom: 4px; }
+
+    .cta { margin-top: 56px; padding: 28px; border-radius: 18px; background: #0a0a0a; color: #fff; }
+    .cta h2 { color: #fff; margin: 0 0 8px; font-size: 22px; }
+    .cta p { color: rgba(255,255,255,0.7); margin-bottom: 18px; }
+    .cta a.btn { display: inline-block; background: #fff; color: #0a0a0a; font-weight: 600; font-size: 14px; padding: 10px 18px; border-radius: 10px; }
+    .cta a.btn:hover { text-decoration: none; opacity: 0.9; }
+
+    .sources { margin-top: 56px; font-size: 13px; }
+    .sources h2 { font-size: 16px; margin: 0 0 10px; }
+    .sources p { font-size: 13px; }
+    .sources ul { margin-left: 18px; color: var(--text-tertiary); }
+    .sources li { margin-bottom: 4px; }
+
+    footer { border-top: 1px solid var(--border); padding: 36px 32px; }
+    .footer-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .footer-logo { display: flex; align-items: center; gap: 9px; }
+    .footer-logo:hover { text-decoration: none; }
+    .footer-logo img { width: 24px; height: 24px; border-radius: 6px; }
+    .footer-logo span { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .footer-links { display: flex; gap: 22px; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: 13px; color: var(--text-secondary); }
+    .footer-links a:hover { color: var(--text-primary); text-decoration: none; }
+    .footer-copy { font-size: 13px; color: var(--text-tertiary); }
+
+    @media (max-width: 640px) {
+      .page { padding: 48px 16px 72px; }
+      .nav-inner { padding: 0 16px; }
+      h1 { font-size: 31px; }
+      h2 { font-size: 22px; }
+      .choose { grid-template-columns: 1fr; }
+      table { min-width: 680px; font-size: 13px; }
+      th, td { padding: 10px 10px; }
+      tbody th { width: 96px; position: sticky; left: 0; z-index: 1; }
+      thead th:first-child { position: sticky; left: 0; z-index: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/assets/logo.png" alt="Myna" />
+        <span>Myna</span>
+      </a>
+      <a href="/" class="nav-back">← Back to home</a>
+    </div>
+  </nav>
+
+  <main class="page">
+
+    <div class="page-header">
+      <div class="badge">Comparison</div>
+      <h1>Myna vs Otter, Granola, Fireflies and anarlog</h1>
+      <p class="lead">I make Myna, so read this knowing that. I've tried to be fair: each section says plainly where the other app is the better choice.</p>
+      <p class="lead">The short version: Otter, Fireflies and Granola are cloud services with more features. anarlog is free and open source, for people happy to configure it. Myna is for people who want meeting notes on a Mac that never leave the Mac, with nothing to set up.</p>
+    </div>
+
+    <h2>At a glance</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th class="myna">Myna</th>
+            <th>Otter</th>
+            <th>Fireflies</th>
+            <th>Granola</th>
+            <th>anarlog</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Bot in your call</th>
+            <td class="myna">Never</td>
+            <td>Its meeting assistant joins as a bot by default; the desktop app can record without one</td>
+            <td>Its notetaker joins as a bot by default; a desktop app can record without one</td>
+            <td>Never</td>
+            <td>Never</td>
+          </tr>
+          <tr>
+            <th>Where audio is transcribed</th>
+            <td class="myna">On your Mac</td>
+            <td>Otter's servers</td>
+            <td>Fireflies' servers</td>
+            <td>Cloud; audio deleted after transcription</td>
+            <td>Your choice: on your computer, your own API key, or their cloud</td>
+          </tr>
+          <tr>
+            <th>Where notes are kept</th>
+            <td class="myna">On your Mac</td>
+            <td>Otter's servers</td>
+            <td>Fireflies' servers</td>
+            <td>Granola's servers</td>
+            <td>On your computer, with optional cloud sync</td>
+          </tr>
+          <tr>
+            <th>Account needed</th>
+            <td class="myna">No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>No, for local use</td>
+          </tr>
+          <tr>
+            <th>Works offline</th>
+            <td class="myna">Yes</td>
+            <td>No</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes, in local mode</td>
+          </tr>
+          <tr>
+            <th>Setup</th>
+            <td class="myna">Install from the Mac App Store and press record</td>
+            <td>Sign up, connect calendar</td>
+            <td>Sign up, connect calendar</td>
+            <td>Sign up, connect calendar</td>
+            <td>Pick transcription and AI models or providers</td>
+          </tr>
+          <tr>
+            <th>Platforms</th>
+            <td class="myna">Mac only (macOS 26, Apple Silicon)</td>
+            <td>Web, desktop, iPhone, Android</td>
+            <td>Web, desktop, mobile, browser extension</td>
+            <td>Mac, Windows, iPhone</td>
+            <td>Mac, Windows, Linux; mobile in beta</td>
+          </tr>
+          <tr>
+            <th>Open source</th>
+            <td class="myna">No</td>
+            <td>No</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <th>Price</th>
+            <td class="myna">Free for 3 meetings a month; Pro $39.99/year or $7.99/month</td>
+            <td>Free plan; Pro about $100/year</td>
+            <td>Free plan; Pro about $120/year</td>
+            <td>Free plan; Business about $14 per user per month</td>
+            <td>Free for local use; paid cloud plan</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Competitor details checked in November 2026 from their own sites and recent reviews. Prices and features change, so check their sites before deciding.</p>
+
+    <h2>Myna vs Otter</h2>
+    <p>Otter is the best-known name here. Its meeting assistant joins your Zoom, Meet or Teams call as a participant, records it and processes everything on Otter's servers. It now also has a desktop app that records without a bot, but the audio still goes to the cloud.</p>
+    <div class="choose">
+      <div>
+        <h3>Choose Otter if</h3>
+        <ul>
+          <li>You need each speaker identified by name</li>
+          <li>You want notes on your phone or in a browser</li>
+          <li>Your team shares and searches meetings together</li>
+        </ul>
+      </div>
+      <div class="mine">
+        <h3>Choose Myna if</h3>
+        <ul>
+          <li>You don't want a bot announcing itself in your calls</li>
+          <li>You don't want recordings on anyone's servers</li>
+          <li>You want to pay less than half the price</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Myna vs Fireflies</h2>
+    <p>Fireflies works much like Otter: a notetaker joins your calls, and recording, transcription and search happen in its cloud. It's built for teams, with many integrations into CRMs and work tools.</p>
+    <div class="choose">
+      <div>
+        <h3>Choose Fireflies if</h3>
+        <ul>
+          <li>You want notes sent automatically into your CRM or project tools</li>
+          <li>You need speaker names and team-wide search</li>
+          <li>You're on Windows or work mostly in a browser</li>
+        </ul>
+      </div>
+      <div class="mine">
+        <h3>Choose Myna if</h3>
+        <ul>
+          <li>Your calls are confidential and shouldn't leave your computer</li>
+          <li>You'd rather not create an account or connect your calendar to a service</li>
+          <li>You only need notes for yourself, on your Mac</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Myna vs Granola</h2>
+    <p>Granola is the closest in spirit: no bot, it records from your computer, and it's pleasant to use. The difference is where the work happens. Granola sends your audio to the cloud to be transcribed (it says the audio is deleted afterwards), and keeps your transcripts and notes on its servers.</p>
+    <div class="choose">
+      <div>
+        <h3>Choose Granola if</h3>
+        <ul>
+          <li>You want the strongest summaries for long meetings, from large cloud AI models</li>
+          <li>You use Windows or want an iPhone app</li>
+          <li>You want to share notes with your team</li>
+        </ul>
+      </div>
+      <div class="mine">
+        <h3>Choose Myna if</h3>
+        <ul>
+          <li>You want transcripts and notes that never leave your Mac</li>
+          <li>You want it to work on a plane or with Wi-Fi off</li>
+          <li>You don't want an account</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Myna vs anarlog</h2>
+    <p>anarlog (formerly Hyprnote) is a free, open-source meeting notepad with a lot of flexibility. You choose how it transcribes and summarizes: on your computer, through your own AI provider, or through its paid cloud.</p>
+    <div class="choose">
+      <div>
+        <h3>Choose anarlog if</h3>
+        <ul>
+          <li>You want open-source software you can inspect or build yourself</li>
+          <li>You're on Windows or Linux</li>
+          <li>You like choosing your own AI models and don't mind setting them up</li>
+        </ul>
+      </div>
+      <div class="mine">
+        <h3>Choose Myna if</h3>
+        <ul>
+          <li>You want it to work out of the box, with nothing to configure</li>
+          <li>You want an app reviewed and distributed by Apple, with billing through the App Store</li>
+          <li>You want no cloud option at all, so nothing can be sent by mistake</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Where Myna falls short</h2>
+    <ul class="points">
+      <li>It only runs on Macs with Apple Silicon and macOS 26. Summaries also need Apple Intelligence turned on.</li>
+      <li>Summaries come from Apple's on-device model, which is smaller than the cloud models others use. They're good for everyday meetings; very long meetings are summarized in parts.</li>
+      <li>The transcript separates you from everyone else, but doesn't name each speaker.</li>
+      <li>There's no phone app, no team sharing and no integrations with other tools.</li>
+    </ul>
+
+    <div class="cta">
+      <h2>Try Myna free</h2>
+      <p>3 meetings a month, transcripts and summaries included. No account.</p>
+      <a class="btn" href="https://apps.apple.com/app/id6761560187?mt=12">Download on the Mac App Store</a>
+    </div>
+
+    <div class="sources">
+      <h2>Sources</h2>
+      <p>Checked November 2026. Where third-party reviews disagreed, I used the more cautious figure.</p>
+      <ul>
+        <li><a href="https://otter.ai/blog/introducing-the-otter-desktop-app">Otter: Introducing the Otter desktop app</a></li>
+        <li><a href="https://www.granola.ai/blog/local-first-ai-notetaker-vs-cloud">Granola: what happens on your device and in the cloud</a></li>
+        <li><a href="https://www.granola.ai/security">Granola: security and privacy</a></li>
+        <li><a href="https://www.granola.ai/blog/meeting-note-tool-pricing-granola-vs-fireflies-fathom-otter">Granola: meeting note tool pricing compared</a></li>
+        <li><a href="https://www.getvoibe.com/resources/ai-meeting-note-taker-pricing/">Voibe: AI meeting note taker pricing</a></li>
+        <li><a href="https://www.castmagic.io/blog/fireflies-pricing">Castmagic: Fireflies pricing</a></li>
+        <li><a href="https://github.com/fastrepl/anarlog">anarlog on GitHub</a></li>
+      </ul>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">
+        <img src="/assets/logo.png" alt="Myna" />
+        <span>Myna</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Use</a></li>
+        <li><a href="/support">Support</a></li>
+        <li><a href="/press">Press</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 Myna. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

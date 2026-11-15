@@ -19,6 +19,7 @@
 ## Pages
 
 - [Home](https://myna.ashwinair.app/): overview, features, pricing and common questions
+- [Comparison](https://myna.ashwinair.app/compare): Myna vs Otter, Granola, Fireflies and anarlog, including where each is better
 - [Press kit](https://myna.ashwinair.app/press): description, fact sheet, icon and banner
 - [Support](https://myna.ashwinair.app/support): requirements and troubleshooting
 - [Privacy policy](https://myna.ashwinair.app/privacy)
